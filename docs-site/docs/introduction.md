@@ -56,8 +56,9 @@ Aksha MD Editor is a drop-in replacement for traditional text processors, built 
 ## Quick Example
 
 ```tsx
-import MarkdownEditor from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css'; // Required: Import CSS for styling
 
 function App() {
   const [markdown, setMarkdown] = useState('# Hello World');

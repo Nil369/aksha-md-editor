@@ -16,10 +16,10 @@ const config = {
   url: 'https://Nil369.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/aksha-md-editor/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
-  organizationName: 'yourusername', // Usually your GitHub org/user name.
+  organizationName: 'Nil369', // Usually your GitHub org/user name.
   projectName: 'aksha-md-editor', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -44,7 +44,7 @@ const config = {
         docs: {
           sidebarPath: './sidebars.js',
           editUrl:
-            'https://github.com/yourusername/aksha-md-editor/tree/main/docs-site/',
+            'https://github.com/Nil369/aksha-md-editor/tree/main/docs-site/',
         },
         blog: false,
         theme: {

@@ -35,8 +35,9 @@ The main component that provides a complete markdown editing experience.
 ### Example
 
 ```tsx
-import MarkdownEditor from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css'; // Required: Import CSS for styling
 
 function App() {
   const [markdown, setMarkdown] = useState('# Hello World');
@@ -110,8 +111,8 @@ Markdown preview component with syntax highlighting and math support.
 ### Example
 
 ```tsx
-import Preview  from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
+import { Preview } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css'; // Required: Import CSS for styling
 
 function MarkdownPreview() {
   const markdown = `
@@ -149,7 +150,8 @@ View mode switcher component.
 Custom hook for theme management with system preference detection.
 
 ```tsx
-import useTheme from 'aksha-md-editor';
+import { useTheme } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css'; // Required: Import CSS for styling
 
 function MyComponent() {
   const { theme, resolvedTheme, setTheme } = useTheme();
@@ -172,6 +174,7 @@ function MyComponent() {
 Custom hook for debouncing values.
 
 ```tsx
+import { useState, useEffect } from 'react';
 import { useDebounce } from 'aksha-md-editor';
 
 function SearchComponent() {

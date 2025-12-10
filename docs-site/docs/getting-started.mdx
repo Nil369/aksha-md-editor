@@ -56,6 +56,7 @@ npm install react react-dom @monaco-editor/react
 ```tsx
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css'; // Import styles
 
 function App() {
   const [markdown, setMarkdown] = useState('# Hello World');
@@ -71,8 +72,8 @@ function App() {
 }
 ```
 
-:::tip Automatic Styling
-Styles are automatically included - no need to import CSS separately!
+:::important CSS Import Required
+Don't forget to import the CSS file for proper styling!
 :::
 
 ## Key Props
@@ -119,6 +120,10 @@ Choose from light, dark, or auto (system preference) themes:
 ### Blog Post Editor
 
 ```tsx
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css'; // Required for styling
+
 function BlogPostEditor() {
   const [content, setContent] = useState('');
 
@@ -143,6 +148,9 @@ function BlogPostEditor() {
 ### Documentation Viewer
 
 ```tsx
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css'; // Required for styling
+
 function DocumentationViewer({ docContent }) {
   return (
     <MarkdownEditor
@@ -158,6 +166,10 @@ function DocumentationViewer({ docContent }) {
 ### Note Taking App
 
 ```tsx
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css'; // Required for styling
+
 function NoteTaker() {
   const [note, setNote] = useState('');
   const [isSaving, setIsSaving] = useState(false);

@@ -72,6 +72,7 @@ Make sure you have these installed:
 ```tsx
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
 
 function App() {
   const [markdown, setMarkdown] = useState('# Hello World');
@@ -107,6 +108,7 @@ function App() {
 
 ```tsx
 import { Editor, Preview, EditorTabs } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
 
 function CustomLayout() {
   const [markdown, setMarkdown] = useState('# Custom Layout');
@@ -203,6 +205,7 @@ function LargeDocumentEditor() {
 
 ```tsx
 import {Preview}  from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
 
 function MarkdownPreview() {
   const markdown = `
