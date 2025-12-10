@@ -36,16 +36,27 @@ export const EditorTabs = memo(function EditorTabs({
         borderBottom: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
         background: isDark ? "#1f2937" : "#f9fafb",
         color: isDark ? "#d1d5db" : "#374151",
+        flexWrap: "wrap",
+        overflowX: "auto",
+        WebkitOverflowScrolling: "touch",
       }}
     >
       {(Object.keys(labels) as ViewMode[]).map((mode) => {
         const { label, icon: Icon } = labels[mode];
         const isActive = viewMode === mode;
+        
+        // Hide Split mode on mobile screens (< 768px)
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        if (mode === 'split' && isMobile) {
+          return null;
+        }
+        
         return (
           <button
             key={mode}
             type="button"
             onClick={() => onViewModeChange(mode)}
+            className={mode === 'split' ? 'hide-on-mobile' : ''}
             style={{
               display: "flex",
               alignItems: "center",
@@ -71,6 +82,9 @@ export const EditorTabs = memo(function EditorTabs({
                 : "#6b7280",
               cursor: "pointer",
               transition: "all 0.2s ease",
+              minHeight: "44px",
+              minWidth: "44px",
+              whiteSpace: "nowrap",
             }}
             onMouseEnter={(e) => {
               if (!isActive) {
@@ -100,7 +114,7 @@ export const EditorTabs = memo(function EditorTabs({
           marginLeft: "auto",
           display: "flex",
           alignItems: "center",
-          gap: "16px",
+          gap: "8px",
           paddingRight: "12px",
         }}
       >

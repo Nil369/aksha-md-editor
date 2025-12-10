@@ -7,7 +7,7 @@ sidebar_position: 1
 Welcome to **Aksha MD Editor** - a highly optimized, production-ready Markdown Editor for React applications.
 
 <div align="center">
-  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style={{ marginTop: '20px', marginBottom: '20px' }} />
+  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style={{ marginTop: '20px', marginBottom: '20px', borderRadius: '15px' }} />
 </div>
 
 ## What is Aksha MD Editor?

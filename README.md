@@ -29,15 +29,15 @@
 ## 📦 Installation
 
 ```bash
-npm install aksha-md-editor
+> npm install aksha-md-editor
 ```
 
 ```bash
-yarn add aksha-md-editor
+> yarn add aksha-md-editor
 ```
 
 ```bash
-pnpm add aksha-md-editor
+> pnpm add aksha-md-editor
 ```
 
 ### Peer Dependencies
@@ -45,129 +45,49 @@ pnpm add aksha-md-editor
 Make sure you have these installed:
 
 ```bash
-npm install react react-dom @monaco-editor/react
+> npm install react react-dom @monaco-editor/react
 ```
 
 ## 🚀 Quick Start
 
 ```tsx
 import { useState } from 'react';
-import MarkdownEditor from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
+import { MarkdownEditor } from 'aksha-md-editor';
 
 function App() {
-  const [markdown, setMarkdown] = useState('# Hello World\n\nStart editing!');
+  const [markdown, setMarkdown] = useState('# Hello World');
 
   return (
     <MarkdownEditor
       value={markdown}
       onChange={setMarkdown}
-      defaultViewMode="split"
       theme="auto"
       height="600px"
     />
   );
 }
-
-export default App;
 ```
 
-## 📚 Examples
+## 📚 Props
 
-### Basic Usage
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | Controlled value |
+| `defaultValue` | `string` | `"# Hello, Markdown!"` | Initial value (uncontrolled) |
+| `onChange` | `(value: string) => void` | - | Change handler |
+| `theme` | `"light" \| "dark" \| "auto"` | `"auto"` | Editor theme |
+| `defaultViewMode` | `"edit" \| "preview" \| "split"` | `"split"` | Initial view mode |
+| `height` | `string` | `"600px"` | Editor height |
+| `onSave` | `(value: string) => void` | - | Save handler (Ctrl+S) |
+| `readOnly` | `boolean` | `false` | Read-only mode |
+| `wordWrap` | `"on" \| "off"` | `"on"` | Word wrap setting
 
-```tsx
-import {MarkdownEditor} from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
-
-function BasicEditor() {
-  const [content, setContent] = useState('# Start writing...');
-
-  return (
-    <MarkdownEditor
-      value={content}
-      onChange={setContent}
-    />
-  );
-}
-```
-
-### With Custom Height and Theme
-
-```tsx
-function CustomizedEditor() {
-  const [markdown, setMarkdown] = useState('');
-
-  return (
-    <MarkdownEditor
-      value={markdown}
-      onChange={setMarkdown}
-      height="800px"
-      theme="dark"
-      defaultViewMode="edit"
-    />
-  );
-}
-```
-
-### With Save Functionality
-
-```tsx
-function EditorWithSave() {
-  const [content, setContent] = useState('');
-
-  const handleSave = (value: string) => {
-    console.log('Saving...', value);
-    // Your save logic here
-  };
-
-  return (
-    <MarkdownEditor
-      value={content}
-      onChange={setContent}
-      onSave={handleSave}
-    />
-  );
-}
-```
-
-### Math and Code Example
-
-```tsx
-function MathEditor() {
-  const initialContent = `
-# Math Example
-
-Inline math: $E = mc^2$
-
-Block math:
-$$
-\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}
-$$
-
-\`\`\`javascript
-const greeting = 'Hello, Markdown!';
-console.log(greeting);
-\`\`\`
-  `;
-
-  const [content, setContent] = useState(initialContent);
-
-  return (
-    <MarkdownEditor
-      value={content}
-      onChange={setContent}
-      defaultViewMode="split"
-    />
-  );
-}
-```
+---
 
 ### Using Individual Components
 
 ```tsx
 import { Editor, Preview, EditorTabs } from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
 
 function CustomLayout() {
   const [markdown, setMarkdown] = useState('# Custom Layout');
@@ -231,105 +151,27 @@ function LargeDocumentEditor() {
 }
 ```
 
-## 🎯 API Reference
+## 🎨 Supported Features
 
-Complete API documentation for aksha-md-editor components and utilities.
+- ✅ **GitHub Flavored Markdown** - Tables, task lists, strikethrough
+- ✅ **Math Equations** - Inline `$E=mc^2$` and block `$$...$$` with KaTeX
+- ✅ **Syntax Highlighting** - 100+ languages via highlight.js
+- ✅ **Live Preview** - Real-time markdown rendering
+- ✅ **Multiple Themes** - Light, dark, and auto (follows system)
+- ✅ **View Modes** - Edit, Preview, or Split view
+- ✅ **Keyboard Shortcuts** - Standard shortcuts (Ctrl+B, Ctrl+I, etc.)
+- ✅ **Fully Typed** - Complete TypeScript support
 
-## MarkdownEditor
+## 🎯 Keyboard Shortcuts
 
-The main component that provides a complete markdown editing experience.
-
-### Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | `undefined` | Controlled value of the editor |
-| `defaultValue` | `string` | `'# Hello, Markdown!\n\nStart typing...'` | Default value for uncontrolled mode |
-| `onChange` | `(value: string) => void` | `undefined` | Callback fired when content changes |
-| `defaultViewMode` | `'edit' \| 'preview' \| 'split'` | `'split'` | Initial view mode |
-| `theme` | `'auto' \| 'light' \| 'dark'` | `'auto'` | Editor theme |
-| `height` | `string` | `'600px'` | Editor height |
-| `className` | `string` | `undefined` | Additional CSS class |
-| `placeholder` | `string` | `'Start typing...'` | Placeholder text |
-| `readOnly` | `boolean` | `false` | Makes editor read-only |
-| `showLineNumbers` | `boolean` | `true` | Show line numbers in editor |
-| `enableToolbar` | `boolean` | `true` | Show formatting toolbar |
-| `toolbarGroups` | `ToolbarGroup[]` | All groups | Toolbar items to display |
-| `wordWrap` | `'on' \| 'off' \| 'wordWrapColumn'` | `'on'` | Word wrap setting |
-| `fontSize` | `number` | `14` | Editor font size |
-| `minimap` | `boolean` | `false` | Show minimap |
-| `performanceMode` | `boolean` | `false` | Enable performance optimizations |
-| `onSave` | `(value: string) => void` | `undefined` | Called on Ctrl+S / Cmd+S |
-| `enableDownload` | `boolean` | `true` | Show a download `.md` button |
-| `downloadFileName` | `string` | `'document.md'` | File name used when downloading |
-
-### Example
-
-```tsx
-import {MarkdownEditor} from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
-
-function App() {
-  const [markdown, setMarkdown] = useState('# Hello World');
-
-  return (
-    <MarkdownEditor
-      value={markdown}
-      onChange={setMarkdown}
-      defaultViewMode="split"
-      theme="auto"
-      height="500px"
-      enableToolbar={true}
-    />
-  );
-}
-```
-
-## Editor
-
-The Monaco-based code editor component with markdown toolbar.
-
-### Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | `''` | Editor content |
-| `onChange` | `(value: string) => void` | Required | Content change callback |
-| `theme` | `'auto' \| 'light' \| 'dark'` | `'auto'` | Editor theme |
-| `height` | `string` | `'100%'` | Editor height |
-| `showLineNumbers` | `boolean` | `true` | Show line numbers |
-| `wordWrap` | `'on' \| 'off' \| 'wordWrapColumn'` | `'on'` | Word wrap setting |
-| `fontSize` | `number` | `14` | Font size |
-| `minimap` | `boolean` | `false` | Show minimap |
-| `readOnly` | `boolean` | `false` | Read-only mode |
-| `placeholder` | `string` | `undefined` | Placeholder text |
-| `enableToolbar` | `boolean` | `true` | Show toolbar |
-| `performanceMode` | `boolean` | `false` | Performance mode |
-| `onSave` | `(value: string) => void` | `undefined` | Save callback |
-
-### Toolbar Actions
-
-- **Bold** (Ctrl+B): Wraps selection with `**text**`
-- **Italic** (Ctrl+I): Wraps selection with `*text*`
-- **Code** (Ctrl+`): Wraps selection with `` `code` ``
-- **Link** (Ctrl+K): Inserts `[text](url)`
-- **Image**: Inserts `![alt](url)`
-- **Ordered List**: Inserts numbered list
-- **Unordered List**: Inserts bullet list
-- **Undo** (Ctrl+Z): Undo last change
-- **Redo** (Ctrl+Y): Redo last undone change
-
-## Preview
-
-Markdown preview component with syntax highlighting and math support.
-
-### Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `content` | `string` | Required | Markdown content to render |
-| `theme` | `'auto' \| 'light' \| 'dark'` | `'auto'` | Preview theme |
-| `className` | `string` | `undefined` | Additional CSS class |
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + B` | Bold text |
+| `Ctrl/Cmd + I` | Italic text |
+| `Ctrl/Cmd + K` | Insert link |
+| `Ctrl/Cmd + S` | Save (if `onSave` provided) |
+| `Ctrl/Cmd + Z` | Undo |
+| `Ctrl/Cmd + Y` | Redo |
 
 ### Supported Features
 
@@ -342,7 +184,6 @@ Markdown preview component with syntax highlighting and math support.
 
 ```tsx
 import {Preview}  from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
 
 function MarkdownPreview() {
   const markdown = `
@@ -445,11 +286,7 @@ type ToolbarGroup = 'undo-redo' | 'formatting' | 'lists' | 'insert';
 
 ## Styling
 
-The library includes pre-built styles for markdown rendering:
-
-```tsx
-import 'aksha-md-editor/styles.css';
-```
+The library automatically includes pre-built styles for markdown rendering (tables, code blocks, math formulas, etc.) when you import the component. No additional CSS imports are required.
 
 ### Custom Styling
 

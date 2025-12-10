@@ -75,7 +75,7 @@ export const Editor = memo(function Editor({
   const editorRef = useRef<any>(null);
   const monacoRef = useRef<any>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   const [showHeadingMenu, setShowHeadingMenu] = useState(false);
   const [showColorMenu, setShowColorMenu] = useState(false);
   const [showHighlightMenu, setShowHighlightMenu] = useState(false);
@@ -183,11 +183,11 @@ export const Editor = memo(function Editor({
     const lineNumber = selection.startLineNumber;
     const lineContent = model.getLineContent(lineNumber);
     const prefix = "#".repeat(level) + " ";
-    
+
     // Remove existing heading if present
     const cleaned = lineContent.replace(/^#+\s*/, "");
     const newText = prefix + cleaned;
-    
+
     const monaco = monacoRef.current;
     editor.executeEdits("", [
       {
@@ -428,7 +428,7 @@ export const Editor = memo(function Editor({
               type="button"
               onClick={() => setShowHeadingMenu(!showHeadingMenu)}
               title="Headings"
-              style={{...buttonStyle, gap: "4px"}}
+              style={{ ...buttonStyle, gap: "4px" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = isDark ? "#374151" : "#e5e7eb")}
               onMouseLeave={(e) => (e.currentTarget.style.background = showHeadingMenu ? (isDark ? "#374151" : "#e5e7eb") : "transparent")}
             >
@@ -573,7 +573,7 @@ export const Editor = memo(function Editor({
               type="button"
               onClick={() => setShowColorMenu(!showColorMenu)}
               title="Text Color"
-              style={{...buttonStyle, gap: "4px"}}
+              style={{ ...buttonStyle, gap: "4px" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = isDark ? "#374151" : "#e5e7eb")}
               onMouseLeave={(e) => (e.currentTarget.style.background = showColorMenu ? (isDark ? "#374151" : "#e5e7eb") : "transparent")}
             >
@@ -581,8 +581,8 @@ export const Editor = memo(function Editor({
               <ChevronDown size={14} />
             </button>
             {showColorMenu && (
-              <div style={{...dropdownStyle, padding: "12px"}}>
-                <div style={{display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px"}}>
+              <div style={{ ...dropdownStyle, padding: "12px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px" }}>
                   {["red", "blue", "green", "orange", "purple", "pink", "yellow", "cyan"].map((color) => (
                     <button
                       key={color}
@@ -608,7 +608,7 @@ export const Editor = memo(function Editor({
               type="button"
               onClick={() => setShowHighlightMenu(!showHighlightMenu)}
               title="Highlight"
-              style={{...buttonStyle, gap: "4px"}}
+              style={{ ...buttonStyle, gap: "4px" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = isDark ? "#374151" : "#e5e7eb")}
               onMouseLeave={(e) => (e.currentTarget.style.background = showHighlightMenu ? (isDark ? "#374151" : "#e5e7eb") : "transparent")}
             >
@@ -616,8 +616,8 @@ export const Editor = memo(function Editor({
               <ChevronDown size={14} />
             </button>
             {showHighlightMenu && (
-              <div style={{...dropdownStyle, padding: "12px"}}>
-                <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px"}}>
+              <div style={{ ...dropdownStyle, padding: "12px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px" }}>
                   {["yellow", "lightgreen", "lightblue", "pink", "plum"].map((color) => (
                     <button
                       key={color}
@@ -646,7 +646,7 @@ export const Editor = memo(function Editor({
               type="button"
               onClick={() => setShowAlignMenu(!showAlignMenu)}
               title="Text Alignment"
-              style={{...buttonStyle, gap: "4px"}}
+              style={{ ...buttonStyle, gap: "4px" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = isDark ? "#374151" : "#e5e7eb")}
               onMouseLeave={(e) => (e.currentTarget.style.background = showAlignMenu ? (isDark ? "#374151" : "#e5e7eb") : "transparent")}
             >
@@ -726,7 +726,7 @@ export const Editor = memo(function Editor({
         </div>
       )}
 
-      <div style={{flex: 1, position: "relative", minHeight: 0}}>
+      <div style={{ flex: 1, position: "relative", minHeight: 0 }}>
         {!value && placeholder && (
           <div
             style={{
@@ -768,6 +768,34 @@ export const Editor = memo(function Editor({
       >
         <span>{value.length.toLocaleString()} chars</span>
         {performanceMode && <span>⚡ Performance mode</span>}
+
+                <a
+          href="https://akashhalder.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontSize: "12px",
+            color: isDark ? "#9ca3af" : "#6b7280",
+            textDecoration: "none",
+            transition: "all 0.2s ease",
+            padding: "2px 6px",
+            borderRadius: "4px",
+            whiteSpace: "nowrap",
+            fontWeight: "500",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = isDark ? "#a78bfa" : "#7c3aed";
+            e.currentTarget.style.background = isDark
+              ? "rgba(139, 92, 246, 0.1)"
+              : "rgba(124, 58, 237, 0.05)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = isDark ? "#9ca3af" : "#6b7280";
+            e.currentTarget.style.background = "transparent";
+          }}
+        >
+          Aksha MD Editor - Akash Halder Technologia
+        </a>
       </div>
     </div>
   );

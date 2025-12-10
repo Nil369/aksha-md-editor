@@ -9,7 +9,13 @@ import TabItem from '@theme/TabItem';
 Get up and running with Aksha MD Editor in minutes!
 
 <div align="center">
-  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style={{ marginTop: '20px', marginBottom: '20px' }} />
+  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style={
+    { 
+      marginTop: '20px', 
+      marginBottom: '20px',
+      borderRadius: '15px'
+    }
+    } />
 </div>
 
 ## Installation
@@ -45,63 +51,44 @@ Make sure you have these installed:
 npm install react react-dom @monaco-editor/react
 ```
 
-## Basic Setup
-
-### 1. Import the Component and Styles
-
-```tsx
-import MarkdownEditor  from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
-```
-
-### 2. Add to Your Component
+## Basic Usage
 
 ```tsx
 import { useState } from 'react';
-import MarkdownEditor from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
+import { MarkdownEditor } from 'aksha-md-editor';
 
 function App() {
-  const [markdown, setMarkdown] = useState('# Hello World\n\nStart editing!');
+  const [markdown, setMarkdown] = useState('# Hello World');
 
   return (
-    <div style={{ height: '600px' }}>
-      <MarkdownEditor
-        value={markdown}
-        onChange={setMarkdown}
-      />
-    </div>
+    <MarkdownEditor
+      value={markdown}
+      onChange={setMarkdown}
+      theme="auto"
+      height="600px"
+    />
   );
 }
-
-export default App;
 ```
 
-### 3. Run Your App
+:::tip Automatic Styling
+Styles are automatically included - no need to import CSS separately!
+:::
 
-That's it! You now have a fully functional markdown editor in your React application.
+## Key Props
 
-## Understanding the Basics
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | Controlled value |
+| `onChange` | `(value: string) => void` | - | Change handler |
+| `theme` | `"light" \| "dark" \| "auto"` | `"auto"` | Theme mode |
+| `defaultViewMode` | `"edit" \| "preview" \| "split"` | `"split"` | Initial view |
+| `height` | `string` | `"600px"` | Editor height |
+| `onSave` | `(value: string) => void` | - | Save callback |
 
-### Controlled vs Uncontrolled
+## View Modes
 
-Aksha MD Editor can be used as both a controlled and uncontrolled component:
-
-**Controlled (Recommended):**
-```tsx
-const [value, setValue] = useState('');
-
-<MarkdownEditor value={value} onChange={setValue} />
-```
-
-**Uncontrolled:**
-```tsx
-<MarkdownEditor defaultValue="# Initial content" />
-```
-
-### View Modes
-
-The editor supports three view modes:
+The editor has three view modes:
 
 - **`edit`**: Editor only
 - **`preview`**: Preview only

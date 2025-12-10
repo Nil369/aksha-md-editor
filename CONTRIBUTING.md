@@ -48,7 +48,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 1. **Clone your fork:**
    ```bash
-   git clone https://github.com/your-username/aksha-md-editor.git
+   git clone https://github.com/Nil369/aksha-md-editor.git
    cd aksha-md-editor
    ```
 

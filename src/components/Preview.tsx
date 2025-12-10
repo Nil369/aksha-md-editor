@@ -8,6 +8,8 @@ import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import type { ThemeMode } from "../types";
+import "katex/dist/katex.css";
+import "../../styles.css";
 
 type PreviewProps = {
   content: string;
@@ -47,17 +49,18 @@ export const Preview = memo(function Preview({
   useEffect(() => {
     if (typeof document === "undefined") return;
     
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href =
+    // Load highlight.js theme
+    const highlightLink = document.createElement("link");
+    highlightLink.rel = "stylesheet";
+    highlightLink.href =
       resolvedTheme === "dark"
         ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
         : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
-    document.head.appendChild(link);
+    document.head.appendChild(highlightLink);
 
     return () => {
-      if (document.head.contains(link)) {
-        document.head.removeChild(link);
+      if (document.head.contains(highlightLink)) {
+        document.head.removeChild(highlightLink);
       }
     };
   }, [resolvedTheme]);
@@ -181,9 +184,14 @@ export const Preview = memo(function Preview({
           </div>
         ) : (
           <div
-            className="markdown-body"
+            className={`markdown-body ${isDark ? 'dark' : ''}`}
             data-theme={resolvedTheme}
-            style={{ wordBreak: "break-word", overflowWrap: "break-word" }}
+            data-color-mode={resolvedTheme}
+            style={{ 
+              wordBreak: "break-word", 
+              overflowWrap: "break-word",
+              color: isDark ? "#e2e8f0" : "#0f172a"
+            }}
             dangerouslySetInnerHTML={{ __html: html }}
           />
         )}
