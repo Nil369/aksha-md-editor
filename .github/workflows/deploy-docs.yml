@@ -36,12 +36,6 @@ jobs:
           cd docs-site
           npm ci
 
-      - name: Install TypeDoc and plugins
-        run: npm install -D typedoc typedoc-plugin-markdown
-
-      - name: Generate TypeDoc API documentation
-        run: npx typedoc
-
       - name: Build Docusaurus site
         run: |
           cd docs-site
