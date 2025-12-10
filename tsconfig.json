@@ -19,5 +19,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "tests", "jest.setup.ts"]
+  "include": ["src/**/*", "tests", "jest.setup.ts"]
 }
