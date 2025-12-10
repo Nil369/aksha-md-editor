@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style="margin-bottom:10px;" />
+  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style="margin-bottom:12px;" />
   
   [![TypeScript](https://img.shields.io/badge/TypeScript-6.x-blue.svg)](https://www.typescriptlang.org/)
   ![Version](https://img.shields.io/badge/version-1.x-green.svg)
@@ -7,6 +7,18 @@
   [![Website](https://img.shields.io/badge/🌐%20Visit%20my%20portfolio-akashhalder.in-blue)](https://akashhalder.in/portfolio)
   <h1>Aksha MD Editor</h1>
   <p>A highly optimized, production-ready Markdown Editor for React with live preview and VS Code style interface</p>
+</div>
+
+---
+
+## 📸 Preview
+
+<div align="center">
+  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-1.png" alt="Aksha MD Editor - Split View Mode" width="100%" style="margin-bottom:20px;" />
+  
+  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-2.png" alt="Aksha MD Editor - Dark Theme" width="100%" style="margin-bottom:20px;" />
+
+  <p><em>Split view mode with live preview</em></p>
 </div>
 
 ---
@@ -359,7 +371,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <div align="center">
-  <p>Made with ❤️ by the Akash Halder</p>
+  <p>Made with ❤️ by Akash Halder</p>
   <p>
     <a href="https://github.com/Nil369/aksha-md-editor">⭐ Star us on GitHub</a>
   </p>

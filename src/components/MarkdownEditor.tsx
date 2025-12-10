@@ -26,9 +26,123 @@ type MarkdownEditorProps = {
   enableResize?: boolean;
 };
 
+const val = `
+# Welcome to Aksha-MD-Editor 🙏
+
+A streamlined, developer-friendly markdown editor built to help you write faster, organize better, and integrate seamlessly into modern React applications.
+
+You can begin typing your markdown content below. The editor supports advanced formatting, tables, lists, KaTeX, syntax-highlighted code blocks, and more.
+
+## List Examples
+
+### Unordered Lists
+
+* Item 1
+
+  * Sub-item 1.1
+  * Sub-item 1.2
+
+    * Sub-sub-item 1.2.1
+    * Sub-sub-item 1.2.2
+
+### Ordered Lists
+
+1. Step one
+2. Step two
+
+   1. Sub-step 2.1
+   2. Sub-step 2.2
+
+## Table Example
+
+| Feature       | Description               |
+| ------------- | ------------------------- |
+| Live Preview  | Real-time rendered output |
+| KaTeX Support | Render math expressions   |
+
+## KaTeX Mathematics
+
+React-MD-Editor fully supports KaTeX, enabling mathematical writing suitable for technical blogs, documentation, or study materials.
+
+### Inline Examples
+
+* Energy relation: $E = mc^2$
+* Right-triangle relation: $c = \\sqrt{a^2 + b^2}$
+* Quadratic roots: $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$
+
+### Display Mode
+
+$$
+\\int_{0}^{1} x^2 \\, dx = \\frac{1}{3}
+$$
+
+$$
+S_n = \\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}
+$$
+
+---
+
+## Code Snippets
+
+React-MD-Editor supports fenced code blocks with syntax highlighting.
+
+### JavaScript
+
+\`\`\`javascript
+const total = (price, tax) => {
+  return price + price * tax;
+};
+console.log(total(50, 0.1));
+\`\`\`
+
+### Python
+
+\`\`\`python
+def square(n):
+    return n * n
+\`\`\`
+
+### PHP
+
+\`\`\`php
+<?php
+$config = [
+  'host' => 'localhost',
+  'port' => 3306
+];
+echo "Configuration Loaded";
+?>
+\`\`\`
+
+### Inline Code
+
+Use backticks for inline expressions such as \\\`npm install react-md-editor\\\`.
+
+---
+
+## Text Formatting
+
+**Bold text**
+*Italic text*
+***Combined formatting***
+
+> Blockquotes
+> Additional lines supported
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by Akash Halder</p>
+  <p>
+    <a href="https://github.com/Nil369/aksha-md-editor">⭐ Star us on GitHub</a>
+  </p>
+</div>
+`;
+
+
 export function MarkdownEditor({
   value,
-  defaultValue = "# Hello, Markdown!\n\nStart typing...",
+  defaultValue = val,
   onChange,
   defaultViewMode = "split",
   theme = "auto",

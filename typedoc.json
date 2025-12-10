@@ -42,8 +42,5 @@
     "notExported": true,
     "invalidLink": true,
     "notDocumented": false
-  },
-  "markedOptions": {
-    "mangle": false
   }
 }

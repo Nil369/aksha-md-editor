@@ -110,3 +110,26 @@
 .codeSection code {
   font-size: 0.9rem;
 }
+
+.demoSection {
+  padding: 4rem 0;
+  background-color: var(--ifm-background-color);
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (max-width: 996px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .buttons {
+    flex-direction: column;
+  }
+}

@@ -13,9 +13,15 @@ function HomepageHeader() {
       <div className={styles.heroContent}>
         <div className={styles.buttons}>
           <Link
-            className="button button--secondary button--lg"
+            className="button button--primary button--lg"
             to="/docs/getting-started">
             Get Started - 5min ⏱️
+          </Link>
+          <Link
+            className="button button--secondary button--lg"
+            style={{ marginLeft: '1rem' }}
+            href="https://github.com/Nil369/aksha-md-editor">
+            View on GitHub
           </Link>
         </div>
       </div>
@@ -80,8 +86,7 @@ function HomepageCode() {
               <code>npm install aksha-md-editor</code>
             </pre>
             <pre>
-              <code>{`import MarkdownEditor  from 'aksha-md-editor';
-import 'aksha-md-editor/dist/styles.css';
+              <code>{`import {MarkdownEditor}  from 'aksha-md-editor';
 
 function App() {
   return <MarkdownEditor defaultViewMode="split" />;
@@ -101,6 +106,36 @@ function App() {
   );
 }
 
+function HomepageDemo() {
+  return (
+    <section className={styles.demoSection}>
+      <div className="container">
+        <Heading as="h2" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          See it in Action
+        </Heading>
+        <div className="row" style={{ marginBottom: '2rem' }}>
+          <div className="col">
+            <img
+              src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-1.png"
+              alt="Aksha MD Editor - Split View Mode"
+              style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <img
+              src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-2.png"
+              alt="Aksha MD Editor - Dark Theme"
+              style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -110,6 +145,7 @@ export default function Home() {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        <HomepageDemo />
         {/* <HomepageCode /> */}
       </main>
     </Layout>
