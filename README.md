@@ -4,7 +4,7 @@
   [![TypeScript](https://img.shields.io/badge/TypeScript-6.x-blue.svg)](https://www.typescriptlang.org/)
   ![Version](https://img.shields.io/badge/version-1.x-green.svg)
   [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Nil369/aksha-md-editor/blob/main/LICENSE)
-  [![Documentation](https://img.shields.io/badge/📖%20Documentation-Visit%20Docs-blue)](https://nil369.github.io/aksha-md-editor/)
+  [![Documentation](https://img.shields.io/badge/📖%20Documentation-Visit%20Docs-blue)](https://aksha-md-editor-docs.akashhalder.in/)
   [![Website](https://img.shields.io/badge/🌐%20Visit%20my%20portfolio-akashhalder.in-blue)](https://akashhalder.in/portfolio)
   <h1>Aksha MD Editor</h1>
   <p>A highly optimized, production-ready Markdown Editor for React with live preview and VS Code style interface</p>
