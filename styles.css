@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
+
+:root {
+  --editor-bg: #ffffff;
+  --editor-text: #0f172a;
+  --editor-border: #e5e7eb;
+  --editor-toolbar-bg: #f9fafb;
+  --editor-toolbar-text: #374151;
+  --editor-accent: #7c3aed;
+  --editor-accent-soft: rgba(124, 58, 237, 0.05);
+  --editor-radius: 8px;
+  --preview-bg: #ffffff;
+  --preview-text: #0f172a;
+}
+
+.dark .markdown-editor,
+.dark {
+  --editor-bg: #111827;
+  --editor-text: #e2e8f0;
+  --editor-border: #374151;
+  --editor-toolbar-bg: #1f2937;
+  --editor-toolbar-text: #d1d5db;
+  --editor-accent: #8b5cf6;
+  --editor-accent-soft: rgba(139, 92, 246, 0.1);
+  --preview-bg: #111827;
+  --preview-text: #e2e8f0;
+}
+
+.markdown-editor {
+  border: 1px solid var(--editor-border);
+  background: var(--editor-bg);
+  color: var(--editor-text);
+  border-radius: var(--editor-radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.markdown-editor .toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--editor-border);
+  background: var(--editor-toolbar-bg);
+  color: var(--editor-toolbar-text);
+}
+
+.markdown-editor .toolbar button,
+.markdown-editor .toolbar-btn {
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.markdown-editor .toolbar button:hover,
+.markdown-editor .toolbar-btn:hover {
+  background: var(--editor-accent-soft);
+  color: var(--editor-accent);
+}
+
+.markdown-editor .toolbar button:active,
+.markdown-editor .toolbar-btn:active {
+  transform: scale(0.95);
+}
+
+.markdown-editor .toolbar button:disabled,
+.markdown-editor .toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.markdown-editor .toolbar .spacer {
+  width: 1px;
+  height: 26px;
+  background: var(--editor-border);
+  margin: 0 0.25rem;
+}
+
+.markdown-editor .editor-shell {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.markdown-editor .placeholder {
+  position: absolute;
+  inset: 0.75rem 0.75rem auto auto;
+  pointer-events: none;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.markdown-editor .preview-pane {
+  background: var(--preview-bg);
+  color: var(--preview-text);
+  overflow: auto;
+  padding: 1rem;
+  height: 100%;
+}
+
+.markdown-editor .status-bar {
+  border-top: 1px solid var(--editor-border);
+  padding: 0.35rem 0.75rem;
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--editor-toolbar-bg);
+}
+
+.markdown-body {
+  font-family: "Reddit Sans", "Inter", system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 16px;
+  color: inherit;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 1rem 0 0.75rem;
+}
+
+.markdown-body h1 {
+  font-size: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.35rem;
+}
+
+.markdown-body h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px dashed #e2e8f0;
+  padding-bottom: 0.25rem;
+}
+
+.markdown-body h3 {
+  font-size: 1.25rem;
+}
+
+.markdown-body p {
+  margin: 0.75rem 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.4rem;
+  margin: 0.75rem 0;
+}
+
+.markdown-body li {
+  margin: 0.25rem 0;
+}
+
+.markdown-body code {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.15rem 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95rem;
+}
+
+.dark .markdown-body code {
+  background: #111827;
+  border-color: #1f2937;
+}
+
+.markdown-body pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 10px;
+  overflow: auto;
+  border: 1px solid #1f2937;
+}
+
+.markdown-body pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+.markdown-body blockquote {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 4px solid #c084fc;
+  background: #faf5ff;
+  color: #4b5563;
+}
+
+.dark .markdown-body blockquote {
+  background: #1e1b4b;
+  color: #cbd5e1;
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.markdown-body th {
+  background: #f8fafc;
+}
+
+.dark .markdown-body th,
+.dark .markdown-body td {
+  border-color: #1f2937;
+}
+
+.dark .markdown-body th {
+  background: #0f172a;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  object-fit: contain;
+  border: 1px solid #e2e8f0;
+}
+
+.dark .markdown-body img {
+  border-color: #374151;
+}
+
+/* Links */
+.markdown-body a {
+  color: var(--editor-accent);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+/* KaTeX Math Styling */
+.markdown-body .katex-display {
+  margin: 1.5rem 0;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.markdown-body .katex {
+  font-size: 1.1em;
+}
+
+/* Emoji Support */
+.markdown-body .emoji {
+  font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: 1.2em;
+  display: inline-block;
+  margin: 0 0.1em;
+  vertical-align: baseline;
+  line-height: 1;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Scrollbar styling */
+.markdown-editor ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.markdown-editor ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.markdown-editor ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark .markdown-editor ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.markdown-editor ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark .markdown-editor ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}

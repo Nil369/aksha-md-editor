@@ -1,0 +1,202 @@
+---
+sidebar_position: 2
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Getting Started
+
+Get up and running with Aksha MD Editor in minutes!
+
+<div align="center">
+  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style={{ marginTop: '20px', marginBottom: '20px' }} />
+</div>
+
+## Installation
+
+Install the package using your preferred package manager:
+
+<Tabs>
+  <TabItem value="apple" label="npm" default>
+    ```bash npm
+    npm install aksha-md-editor
+    ```
+  </TabItem>
+  <TabItem value="orange" label="yarn">
+    ```bash yarn
+    yarn add aksha-md-editor
+    ```
+  </TabItem>
+  <TabItem value="banana" label="pnpm">
+    ```bash pnpm
+    pnpm add aksha-md-editor
+    ```
+    
+  </TabItem>
+</Tabs>
+
+
+
+### Peer Dependencies
+
+Make sure you have these installed:
+
+```bash npm2yarn
+npm install react react-dom @monaco-editor/react
+```
+
+## Basic Setup
+
+### 1. Import the Component and Styles
+
+```tsx
+import MarkdownEditor  from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+```
+
+### 2. Add to Your Component
+
+```tsx
+import { useState } from 'react';
+import MarkdownEditor from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function App() {
+  const [markdown, setMarkdown] = useState('# Hello World\n\nStart editing!');
+
+  return (
+    <div style={{ height: '600px' }}>
+      <MarkdownEditor
+        value={markdown}
+        onChange={setMarkdown}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### 3. Run Your App
+
+That's it! You now have a fully functional markdown editor in your React application.
+
+## Understanding the Basics
+
+### Controlled vs Uncontrolled
+
+Aksha MD Editor can be used as both a controlled and uncontrolled component:
+
+**Controlled (Recommended):**
+```tsx
+const [value, setValue] = useState('');
+
+<MarkdownEditor value={value} onChange={setValue} />
+```
+
+**Uncontrolled:**
+```tsx
+<MarkdownEditor defaultValue="# Initial content" />
+```
+
+### View Modes
+
+The editor supports three view modes:
+
+- **`edit`**: Editor only
+- **`preview`**: Preview only
+- **`split`**: Side-by-side (default)
+
+```tsx
+<MarkdownEditor
+  value={markdown}
+  onChange={setMarkdown}
+  defaultViewMode="split" // or "edit" or "preview"
+/>
+```
+
+### Themes
+
+Choose from light, dark, or auto (system preference) themes:
+
+```tsx
+<MarkdownEditor
+  value={markdown}
+  onChange={setMarkdown}
+  theme="auto" // or "light" or "dark"
+/>
+```
+
+## Common Use Cases
+
+### Blog Post Editor
+
+```tsx
+function BlogPostEditor() {
+  const [content, setContent] = useState('');
+
+  const handleSave = () => {
+    // Save content to your backend
+    console.log('Saving:', content);
+  };
+
+  return (
+    <div>
+      <MarkdownEditor
+        value={content}
+        onChange={setContent}
+        minHeight="500px"
+      />
+      <button onClick={handleSave}>Save Post</button>
+    </div>
+  );
+}
+```
+
+### Documentation Viewer
+
+```tsx
+function DocumentationViewer({ docContent }) {
+  return (
+    <MarkdownEditor
+      value={docContent}
+      readOnly={true}
+      defaultViewMode="preview"
+      showToolbar={false}
+    />
+  );
+}
+```
+
+### Note Taking App
+
+```tsx
+function NoteTaker() {
+  const [note, setNote] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleDebouncedChange = async (content) => {
+    setIsSaving(true);
+    await saveToBackend(content);
+    setIsSaving(false);
+  };
+
+  return (
+    <div>
+      {isSaving && <div>Saving...</div>}
+      <MarkdownEditor
+        value={note}
+        onChange={setNote}
+        onDebouncedChange={handleDebouncedChange}
+        placeholder="Start taking notes..."
+      />
+    </div>
+  );
+}
+```
+
+## Next Steps
+
+- Learn about [Advanced Usage](./guides/advanced-usage)
+- Explore [Customization Options](./guides/customization)
+- Check out the [API Reference](./api)
