@@ -6,7 +6,7 @@
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "style": "styles.css",
-    "homepage": "https://www.akashhalder.in",
+    "homepage": "https://nil369.github.io/aksha-md-editor/",
     "files": [
         "dist",
         "styles.css",
