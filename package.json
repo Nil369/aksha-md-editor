@@ -1,6 +1,6 @@
 {
     "name": "aksha-md-editor",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "A highly optimized production-ready Markdown Editor for React with preview and VS Code style tabs.",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
