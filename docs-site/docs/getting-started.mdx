@@ -42,15 +42,6 @@ Install the package using your preferred package manager:
 </Tabs>
 
 
-
-### Peer Dependencies
-
-Make sure you have these installed:
-
-```bash npm2yarn
-npm install react react-dom @monaco-editor/react
-```
-
 ## Basic Usage
 
 ```tsx
@@ -76,6 +67,8 @@ function App() {
 Don't forget to import the CSS file for proper styling!
 :::
 
+---
+
 ## Key Props
 
 | Prop | Type | Default | Description |
@@ -87,6 +80,7 @@ Don't forget to import the CSS file for proper styling!
 | `height` | `string` | `"600px"` | Editor height |
 | `onSave` | `(value: string) => void` | - | Save callback |
 
+---
 ## View Modes
 
 The editor has three view modes:
@@ -102,7 +96,7 @@ The editor has three view modes:
   defaultViewMode="split" // or "edit" or "preview"
 />
 ```
-
+---
 ### Themes
 
 Choose from light, dark, or auto (system preference) themes:
@@ -114,7 +108,7 @@ Choose from light, dark, or auto (system preference) themes:
   theme="auto" // or "light" or "dark"
 />
 ```
-
+---
 ## Common Use Cases
 
 ### Blog Post Editor
@@ -144,7 +138,7 @@ function BlogPostEditor() {
   );
 }
 ```
-
+---
 ### Documentation Viewer
 
 ```tsx
@@ -162,7 +156,7 @@ function DocumentationViewer({ docContent }) {
   );
 }
 ```
-
+---
 ### Note Taking App
 
 ```tsx
