@@ -653,7 +653,7 @@ export const Preview = memo(function Preview({
                       };
                     }
                   }, 200); // Wait for mermaid to render SVG
-                }).catch((err) => {
+                }).catch((err:Error) => {
                   console.warn("Mermaid render error:", err);
                 });
               }

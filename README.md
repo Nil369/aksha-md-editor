@@ -1,12 +1,13 @@
 <div align="center">
-  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style="margin-bottom:12px;" />
+  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style="margin-bottom:15px; border-radius:10px" />
   
   [![TypeScript](https://img.shields.io/badge/TypeScript-6.x-blue.svg)](https://www.typescriptlang.org/)
   ![Version](https://img.shields.io/badge/version-1.x-green.svg)
   [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Nil369/aksha-md-editor/blob/main/LICENSE)
   [![Documentation](https://img.shields.io/badge/📖%20Documentation-Visit%20Docs-blue)](https://aksha-md-editor-docs.akashhalder.in/)
   [![Website](https://img.shields.io/badge/🌐%20Visit%20my%20portfolio-akashhalder.in-blue)](https://akashhalder.in/portfolio)
-  <h1>Aksha MD Editor</h1>
+
+  <h1>Aksha MD Editor </h1>
   <p>A highly optimized, production-ready Markdown Editor for React with live preview and VS Code style interface</p>
 </div>
 
@@ -382,7 +383,7 @@ You can override styles using CSS custom properties:
 
 ## ⚡ Performance Tips
 
-1. **Use performanceMode**: For documents > 10,000 lines
+1. **Use performanceMode**: For documents > 10,000 characters
 2. **Disable minimap**: Reduces memory usage
 3. **Debounce onChange**: Already implemented (300ms)
 4. **Use controlled mode sparingly**: For large documents, consider uncontrolled mode
