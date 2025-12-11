@@ -1,27 +1,33 @@
 name: Publish to NPM
 
+permissions:
+  contents: write  # required to push version + tags
+
 on:
   push:
     branches:
       - main
     paths:
-      - 'package.json'
-      - 'src/**'
-      - 'styles.css'
+      - "package.json"
+      - "src/**"
+      - "styles.css"
   workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # allow pushing tags
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Configure Git
         run: |
@@ -42,6 +48,7 @@ jobs:
 
       - name: Push changes
         run: git push --follow-tags
+
       - name: Publish to NPM
         run: npm publish --access public
         env:
