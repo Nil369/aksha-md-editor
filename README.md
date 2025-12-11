@@ -1,12 +1,13 @@
 <div align="center">
-  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style="margin-bottom:12px;" />
+  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876" alt="Aksha MD Editor Banner" width="100%" style="margin-bottom:15px; border-radius:10px" />
   
   [![TypeScript](https://img.shields.io/badge/TypeScript-6.x-blue.svg)](https://www.typescriptlang.org/)
   ![Version](https://img.shields.io/badge/version-1.x-green.svg)
   [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Nil369/aksha-md-editor/blob/main/LICENSE)
   [![Documentation](https://img.shields.io/badge/📖%20Documentation-Visit%20Docs-blue)](https://aksha-md-editor-docs.akashhalder.in/)
   [![Website](https://img.shields.io/badge/🌐%20Visit%20my%20portfolio-akashhalder.in-blue)](https://akashhalder.in/portfolio)
-  <h1>Aksha MD Editor</h1>
+
+  <h1>Aksha MD Editor </h1>
   <p>A highly optimized, production-ready Markdown Editor for React with live preview and VS Code style interface</p>
 </div>
 
@@ -14,13 +15,9 @@
 
 ## 📸 Preview
 
-<div align="center">
-  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-1.png" alt="Aksha MD Editor - Split View Mode" width="100%" style="margin-bottom:20px;" />
-  
-  <img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-2.png" alt="Aksha MD Editor - Dark Theme" width="100%" style="margin-bottom:20px;" />
-
-  <p><em>Split view mode with live preview</em></p>
-</div>
+| Light theme | Dark Mode |  Features Demo |
+| --- | --- | --- |
+| ![](https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-1.png) | ![](https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/dark-mode-preview.png) | ![](https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/interactive-diagrams.png) |
 
 ---
 
@@ -39,11 +36,11 @@
 - **🎯 TypeScript** - Full type safety with comprehensive type definitions
 - **📦 Tree-shakable** - Import only what you need
 
+----
+
 ## 📖 Documentation
 
-📚 **[Visit the full documentation →](https://nil369.github.io/aksha-md-editor/)**
-
-Complete guides, API reference, and examples are available in our documentation site.
+Complete guides, API reference, and examples are available in our documentation site: **[Visit the full documentation →](https://aksha-md-editor-docs.akashhalder.in/)**
 
 ## 📦 Installation
 
@@ -57,14 +54,6 @@ Complete guides, API reference, and examples are available in our documentation 
 
 ```bash
 > pnpm add aksha-md-editor
-```
-
-### Peer Dependencies
-
-Make sure you have these installed:
-
-```bash
-> npm install react react-dom @monaco-editor/react
 ```
 
 ## 🚀 Quick Start
@@ -177,9 +166,13 @@ function LargeDocumentEditor() {
 - ✅ **GitHub Flavored Markdown** - Tables, task lists, strikethrough
 - ✅ **Math Equations** - Inline `$E=mc^2$` and block `$$...$$` with KaTeX
 - ✅ **Syntax Highlighting** - 100+ languages via highlight.js
+- ✅ **Diagrams** - Mermaid flowcharts via fenced blocks
+- ✅ **Charts** - Apache ECharts via fenced blocks
+- ✅ **Emoji** - Noto Color Emoji font support
 - ✅ **Live Preview** - Real-time markdown rendering
 - ✅ **Multiple Themes** - Light, dark, and auto (follows system)
 - ✅ **View Modes** - Edit, Preview, or Split view
+- ✅ **Auto Scroll** - Preview follows editor scroll in split view
 - ✅ **Keyboard Shortcuts** - Standard shortcuts (Ctrl+B, Ctrl+I, etc.)
 - ✅ **Fully Typed** - Complete TypeScript support
 
@@ -194,12 +187,7 @@ function LargeDocumentEditor() {
 | `Ctrl/Cmd + Z` | Undo |
 | `Ctrl/Cmd + Y` | Redo |
 
-### Supported Features
-
-- **GitHub Flavored Markdown (GFM)**: Tables, task lists, strikethrough, autolinks
-- **Math Equations**: LaTeX syntax with KaTeX (inline `$...$` and block `$$...$$`)
-- **Syntax Highlighting**: Code blocks with language detection
-- **Autolinks**: Automatically converts URLs to links
+---
 
 ### Example
 
@@ -220,6 +208,50 @@ $$
   `;
 
   return <Preview content={markdown} theme="light" />;
+}
+```
+
+### Mermaid and ECharts
+
+Add diagrams and charts with fenced code blocks:
+
+````markdown
+```mermaid
+flowchart TD
+  A[Start] --> B{Decision}
+  B -- Yes --> C[Do]
+  B -- No  --> D[Skip]
+```
+
+```echarts
+{
+  "xAxis": { "type": "category", "data": ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"] },
+  "yAxis": { "type": "value" },
+  "series": [ { "type": "line", "data": [150,230,224,218,135,147,260] } ]
+}
+```
+````
+
+Mermaid and ECharts are loaded on-demand from CDN and respect the current theme.
+
+<img src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/mermaid-echarts-preview.png" alt="Mermaid Preview">
+
+### Download Markdown
+
+Provide a button to download the current markdown:
+
+```tsx
+function DownloadButton({ text }: { text: string }) {
+  const handleDownload = () => {
+    const blob = new Blob([text], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'document.md';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+  return <button onClick={handleDownload}>Download .md</button>;
 }
 ```
 
@@ -351,7 +383,7 @@ You can override styles using CSS custom properties:
 
 ## ⚡ Performance Tips
 
-1. **Use performanceMode**: For documents > 10,000 lines
+1. **Use performanceMode**: For documents > 10,000 characters
 2. **Disable minimap**: Reduces memory usage
 3. **Debounce onChange**: Already implemented (300ms)
 4. **Use controlled mode sparingly**: For large documents, consider uncontrolled mode

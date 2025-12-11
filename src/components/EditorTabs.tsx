@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Edit3, Eye, Columns, Maximize, Minimize } from "lucide-react";
+import { Edit3, Eye, Columns, Maximize, Minimize, List } from "lucide-react";
 import type { ViewMode } from "../types";
 
 type EditorTabsProps = {
@@ -9,6 +9,10 @@ type EditorTabsProps = {
   onFullscreenToggle?: () => void;
   className?: string;
   theme?: "light" | "dark";
+  autoScroll?: boolean;
+  onToggleAutoScroll?: () => void;
+  showSidebar?: boolean;
+  onToggleSidebar?: () => void;
 };
 
 const labels: Record<ViewMode, { label: string; icon: typeof Edit3 }> = {
@@ -24,6 +28,10 @@ export const EditorTabs = memo(function EditorTabs({
   onFullscreenToggle,
   className = "",
   theme = "light",
+  autoScroll,
+  onToggleAutoScroll,
+  showSidebar = false,
+  onToggleSidebar,
 }: EditorTabsProps) {
   const isDark = theme === "dark";
 
@@ -44,29 +52,32 @@ export const EditorTabs = memo(function EditorTabs({
       {(Object.keys(labels) as ViewMode[]).map((mode) => {
         const { label, icon: Icon } = labels[mode];
         const isActive = viewMode === mode;
-        
+
         // Hide Split mode on mobile screens (< 768px)
-        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-        if (mode === 'split' && isMobile) {
+        const isMobile =
+          typeof window !== "undefined" && window.innerWidth < 768;
+        if (mode === "split" && isMobile) {
           return null;
         }
-        
+
         return (
           <button
             key={mode}
             type="button"
             onClick={() => onViewModeChange(mode)}
-            className={mode === 'split' ? 'hide-on-mobile' : ''}
+            className={mode === "split" ? "hide-on-mobile" : ""}
             style={{
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              padding: "8px 16px",
+              padding: "6px 14px",
               fontSize: "14px",
               fontWeight: 600,
               border: "none",
               borderBottom: isActive
-                ? `2px solid ${isDark ? "#8b5cf6" : "#7c3aed"}`
+                ? isDark && mode === "edit"
+                  ? "2px solid transparent"
+                  : `2px solid ${isDark ? "#8b5cf6" : "#7c3aed"}`
                 : "2px solid transparent",
               background: isActive
                 ? isDark
@@ -85,6 +96,7 @@ export const EditorTabs = memo(function EditorTabs({
               minHeight: "44px",
               minWidth: "44px",
               whiteSpace: "nowrap",
+              borderRadius: "10px 10px 0 0",
             }}
             onMouseEnter={(e) => {
               if (!isActive) {
@@ -103,7 +115,7 @@ export const EditorTabs = memo(function EditorTabs({
             aria-label={`Switch to ${label} mode`}
             aria-current={isActive ? "page" : undefined}
           >
-            <Icon style={{ width: "16px", height: "16px" }} />
+            <Icon style={{ width: "14px", height: "14px" }} />
             <span>{label}</span>
           </button>
         );
@@ -129,6 +141,104 @@ export const EditorTabs = memo(function EditorTabs({
           {viewMode === "preview" && "Preview mode - Read-only view"}
           {viewMode === "split" && "Split mode - Edit and preview side-by-side"}
         </span>
+        {typeof onToggleAutoScroll === "function" && (
+          <button
+            type="button"
+            onClick={onToggleAutoScroll}
+            title="Toggle Auto Scroll"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "6px 10px",
+              borderRadius: "6px",
+              background: "transparent",
+              border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
+              color: isDark ? "#9ca3af" : "#6b7280",
+              cursor: "pointer",
+              fontSize: "12px",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = isDark
+                ? "rgba(75, 85, 99, 0.3)"
+                : "rgba(229, 231, 235, 0.5)";
+              e.currentTarget.style.color = isDark ? "#d1d5db" : "#374151";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.color = isDark ? "#9ca3af" : "#6b7280";
+            }}
+          >
+            <span>
+              {typeof window !== "undefined" && window.innerWidth < 420
+                ? "Auto"
+                : "Scroll Auto"}
+            </span>
+            <span
+              style={{
+                color: isDark
+                  ? autoScroll
+                    ? "#a78bfa"
+                    : "#9ca3af"
+                  : autoScroll
+                  ? "#7c3aed"
+                  : "#6b7280",
+              }}
+            >
+              {autoScroll ? "✓" : "✗"}
+            </span>
+          </button>
+        )}
+        {(viewMode === "preview" || viewMode === "split") &&
+          typeof onToggleSidebar === "function" && (
+            <button
+              type="button"
+              onClick={onToggleSidebar}
+              title={
+                showSidebar
+                  ? "Hide Table of Contents"
+                  : "Show Table of Contents"
+              }
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "6px",
+                borderRadius: "6px",
+                background: showSidebar
+                  ? isDark
+                    ? "rgba(139, 92, 246, 0.2)"
+                    : "rgba(124, 58, 237, 0.1)"
+                  : "transparent",
+                border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
+                color: showSidebar
+                  ? isDark
+                    ? "#a78bfa"
+                    : "#7c3aed"
+                  : isDark
+                  ? "#9ca3af"
+                  : "#6b7280",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                if (!showSidebar) {
+                  e.currentTarget.style.background = isDark
+                    ? "rgba(75, 85, 99, 0.3)"
+                    : "rgba(229, 231, 235, 0.5)";
+                  e.currentTarget.style.color = isDark ? "#d1d5db" : "#374151";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!showSidebar) {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = isDark ? "#9ca3af" : "#6b7280";
+                }
+              }}
+            >
+              <List style={{ width: "16px", height: "16px" }} />
+            </button>
+          )}
         {onFullscreenToggle && (
           <button
             type="button"

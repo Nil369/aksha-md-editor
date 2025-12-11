@@ -5,6 +5,7 @@ const sidebars = {
   tutorialSidebar: [
     'introduction',
     'getting-started',
+    'examples',
     'api-reference',
   ],
 };

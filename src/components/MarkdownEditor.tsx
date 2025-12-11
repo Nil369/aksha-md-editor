@@ -130,6 +130,30 @@ Use backticks for inline expressions such as \\\`npm install react-md-editor\\\`
 > Additional lines supported
 
 ---
+## Mermaid and ECharts
+
+Add diagrams and charts with fenced code blocks:
+
+- mermaid
+
+\`\`\`mermaid
+flowchart TD
+  A[Start] --> B{Decision}
+  B -- Yes --> C[Do]
+  B -- No  --> D[Skip]
+\`\`\`
+
+- echarts
+
+\`\`\`echarts
+{
+  "xAxis": { "type": "category", "data": ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"] },
+  "yAxis": { "type": "value" },
+  "series": [ { "type": "line", "data": [150,230,224,218,135,147,260] } ]
+}
+\`\`\`
+
+---
 
 <div align="center">
   <p>Made with ❤️ by Akash Halder</p>
@@ -138,7 +162,6 @@ Use backticks for inline expressions such as \\\`npm install react-md-editor\\\`
   </p>
 </div>
 `;
-
 
 export function MarkdownEditor({
   value,
@@ -168,9 +191,12 @@ export function MarkdownEditor({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [splitRatio, setSplitRatio] = useState(50);
   const [isResizing, setIsResizing] = useState(false);
-  
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const resizerRef = useRef<HTMLDivElement>(null);
+  const previewScrollRef = useRef<HTMLDivElement | null>(null);
 
   const currentValue = isControlled ? (value as string) : internalValue;
 
@@ -206,10 +232,11 @@ export function MarkdownEditor({
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!isResizing || !containerRef.current) return;
-      
+
       const containerRect = containerRef.current.getBoundingClientRect();
-      const newRatio = ((e.clientX - containerRect.left) / containerRect.width) * 100;
-      
+      const newRatio =
+        ((e.clientX - containerRect.left) / containerRect.width) * 100;
+
       // Clamp between 20% and 80%
       if (newRatio >= 20 && newRatio <= 80) {
         setSplitRatio(newRatio);
@@ -259,6 +286,10 @@ export function MarkdownEditor({
         isFullscreen={isFullscreen}
         onFullscreenToggle={enableFullscreen ? toggleFullscreen : undefined}
         theme={resolvedTheme}
+        autoScroll={autoScroll}
+        onToggleAutoScroll={() => setAutoScroll((prev) => !prev)}
+        showSidebar={showSidebar}
+        onToggleSidebar={() => setShowSidebar((prev) => !prev)}
       />
 
       <div
@@ -294,6 +325,12 @@ export function MarkdownEditor({
               minimap={minimap}
               performanceMode={performanceMode}
               onSave={onSave}
+              onScrollChange={(ratio) => {
+                if (!autoScroll || !previewScrollRef.current) return;
+                const el = previewScrollRef.current;
+                const max = el.scrollHeight - el.clientHeight;
+                el.scrollTop = Math.max(0, max * ratio);
+              }}
             />
           </div>
         )}
@@ -312,12 +349,16 @@ export function MarkdownEditor({
             }}
             onMouseEnter={(e) => {
               if (!isResizing) {
-                e.currentTarget.style.background = isDark ? "#4b5563" : "#d1d5db";
+                e.currentTarget.style.background = isDark
+                  ? "#4b5563"
+                  : "#d1d5db";
               }
             }}
             onMouseLeave={(e) => {
               if (!isResizing) {
-                e.currentTarget.style.background = isDark ? "#374151" : "#e5e7eb";
+                e.currentTarget.style.background = isDark
+                  ? "#374151"
+                  : "#e5e7eb";
               }
             }}
           >
@@ -359,12 +400,21 @@ export function MarkdownEditor({
           <div
             style={{
               height: "100%",
-              width:
-                viewMode === "split" ? `${100 - splitRatio}%` : "100%",
+              width: viewMode === "split" ? `${100 - splitRatio}%` : "100%",
               overflow: "hidden",
             }}
           >
-            <Preview content={debouncedValue} theme={theme} />
+            <Preview
+              content={debouncedValue}
+              theme={theme}
+              onScrollContainerRef={(el) => (previewScrollRef.current = el)}
+              showSidebar={showSidebar}
+              onToggleSidebar={() => setShowSidebar((prev) => !prev)}
+              onContentChange={(newContent) => {
+                // Update the editor content when checkbox is clicked in preview
+                handleChange(newContent);
+              }}
+            />
           </div>
         )}
       </div>

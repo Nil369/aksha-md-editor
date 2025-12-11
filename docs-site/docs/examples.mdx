@@ -1,0 +1,310 @@
+---
+sidebar_position: 4
+---
+
+# Examples & Use Cases
+
+Explore real-world examples and use cases for Aksha MD Editor with interactive code examples.
+
+## Basic Editor
+
+A simple markdown editor with default settings:
+
+```tsx
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function BasicEditor() {
+  const [markdown, setMarkdown] = useState("# Welcome to Aksha MD Editor\n\nThis is a **powerful** markdown editor with  preview.\n\n## Features\n\n- ✨ Monaco Editor integration\n- 🎨 Theme support\n- 📝 GitHub Flavored Markdown\n- 🧮 Math equations support");
+
+  return (
+    <div style={{ height: '500px', border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
+      <MarkdownEditor
+        value={markdown}
+        onChange={setMarkdown}
+        theme="auto"
+        height="500px"
+      />
+    </div>
+  );
+}
+```
+
+## Styled Custom Editor
+
+Customize the editor with your own styling:
+
+```tsx 
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function StyledEditor() {
+  const [content, setContent] = useState("# Custom Styled Editor\n\nThis editor has custom styling applied.\n\n## Custom Features\n\n- Custom height\n- Custom theme\n- Custom view mode");
+
+  return (
+    <div style={{ 
+      padding: '20px', 
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      borderRadius: '12px',
+      boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+    }}>
+      <div style={{ 
+        background: 'white', 
+        borderRadius: '8px', 
+        overflow: 'hidden',
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+      }}>
+        <MarkdownEditor
+          value={content}
+          onChange={setContent}
+          theme="light"
+          height="400px"
+          defaultViewMode="split"
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+## Blog Post Editor
+
+A complete blog post editor with save functionality:
+
+```tsx 
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function BlogEditor() {
+  const [post, setPost] = useState("# My Blog Post\n\nWrite your blog post here using markdown.\n\n## Introduction\n\nThis is the introduction paragraph.\n\n## Main Content\n\nAdd your main content here with:\n\n- Lists\n- **Bold text**\n- *Italic text*\n- [Links](https://example.com)\n\n## Conclusion\n\nWrap up your post here.");
+
+  const handleSave = () => {
+    alert("Post saved! Content: " + post.substring(0, 50) + "...");
+  };
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h2 style={{ margin: 0 }}>Blog Post Editor</h2>
+        <button 
+          onClick={handleSave}
+          style={{
+            padding: '8px 16px',
+            background: '#7c3aed',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            fontWeight: '500'
+          }}
+        >
+          Save Post
+        </button>
+      </div>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
+        <MarkdownEditor
+          value={post}
+          onChange={setPost}
+          onSave={handleSave}
+          theme="auto"
+          height="600px"
+          defaultViewMode="split"
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+## Documentation Viewer
+
+A read-only documentation viewer:
+
+```tsx 
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function DocViewer() {
+  const docContent = "# Documentation\n\nThis is a read-only documentation viewer.\n\n## Features\n\n- Read-only mode\n- Preview-only view\n- Perfect for documentation sites\n\n## Code Example\n\n```javascript\nfunction example() {\n  return \"Hello, World!\";\n}\n```\n\n## Math Example\n\nInline: $E = mc^2$\n\nBlock:\n$$\n\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}\n$$";
+
+  return (
+    <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
+      <MarkdownEditor
+        value={docContent}
+        readOnly={true}
+        defaultViewMode="preview"
+        theme="auto"
+        height="500px"
+      />
+    </div>
+  );
+}
+```
+
+## Note Taking App
+
+A note-taking application with auto-save:
+
+```tsx 
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function NoteTaker() {
+  const [note, setNote] = useState("# My Notes\n\n## Today's Tasks\n\n- [ ] Complete project documentation\n- [ ] Review code changes\n- [ ] Update dependencies\n\n## Ideas\n\n- Feature idea 1\n- Feature idea 2");
+
+  const [lastSaved, setLastSaved] = useState("Never");
+
+  const handleAutoSave = (content) => {
+    // Simulate auto-save
+    setTimeout(() => {
+      setLastSaved(new Date().toLocaleTimeString());
+    }, 500);
+  };
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <div style={{ 
+        marginBottom: '16px', 
+        padding: '12px', 
+        background: '#f3f4f6', 
+        borderRadius: '6px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+        <h2 style={{ margin: 0 }}>My Notes</h2>
+        <span style={{ fontSize: '14px', color: '#6b7280' }}>
+          Last saved: {lastSaved}
+        </span>
+      </div>
+      <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
+        <MarkdownEditor
+          value={note}
+          onChange={setNote}
+          onDebouncedChange={handleAutoSave}
+          theme="auto"
+          height="500px"
+          placeholder="Start taking notes..."
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+## Dark Theme Editor
+
+An editor with dark theme:
+
+```tsx 
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function DarkEditor() {
+  const [content, setContent] = useState("# Dark Theme Editor\n\nThis editor uses the dark theme.\n\n## Features\n\n- Dark mode optimized\n- Easy on the eyes\n- Professional look");
+
+  return (
+    <div style={{ 
+      padding: '20px', 
+      background: '#1f2937', 
+      borderRadius: '12px',
+      minHeight: '500px'
+    }}>
+      <MarkdownEditor
+        value={content}
+        onChange={setContent}
+        theme="dark"
+        height="450px"
+        defaultViewMode="split"
+      />
+    </div>
+  );
+}
+```
+
+## Custom Styling
+
+Apply custom CSS to the editor:
+
+```tsx 
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function CustomStyledEditor() {
+  const [content, setContent] = useState("# Custom Styled Editor\n\nThis editor has custom CSS applied.\n\n## Styling Options\n\nYou can customize:\n- Colors\n- Borders\n- Spacing\n- Fonts");
+
+  return (
+    <div>
+      <style>{".custom-editor { border: 2px solid #7c3aed; border-radius: 12px; overflow: hidden; } .custom-editor .toolbar-container { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }"}</style>
+      <div className="custom-editor">
+        <MarkdownEditor
+          value={content}
+          onChange={setContent}
+          theme="light"
+          height="400px"
+          className="custom-editor"
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+## Math Equations Example
+
+Editor with math equation support:
+
+```tsx 
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function MathEditor() {
+  const [content, setContent] = useState("# Math Equations\n\n## Inline Math\n\nEinstein's famous equation: $E = mc^2$\n\nPythagorean theorem: $c = \\\\sqrt{a^2 + b^2}$\n\n## Block Math\n\n$$\n\\\\int_{0}^{1} x^2 \\\\, dx = \\\\frac{1}{3}\n$$\n\n$$\nS_n = \\\\sum_{i=1}^{n} i = \\\\frac{n(n+1)}{2}\n$$");
+
+  return (
+    <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
+      <MarkdownEditor
+        value={content}
+        onChange={setContent}
+        theme="auto"
+        height="500px"
+        defaultViewMode="split"
+      />
+    </div>
+  );
+}
+```
+
+## Checklist Example
+
+Interactive checklist with bidirectional sync:
+
+```tsx 
+import { useState } from 'react';
+import { MarkdownEditor } from 'aksha-md-editor';
+import 'aksha-md-editor/styles.css';
+
+function ChecklistEditor() {
+  const [tasks, setTasks] = useState("# My Tasks\n\n## Today\n\n- [ ] Complete documentation\n- [x] Review pull requests\n- [ ] Update dependencies\n- [ ] Write tests\n\n## This Week\n\n- [ ] Plan next sprint\n- [ ] Code review\n- [ ] Deploy to staging");
+
+  return (
+    <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
+      <MarkdownEditor
+        value={tasks}
+        onChange={setTasks}
+        theme="auto"
+        height="500px"
+        defaultViewMode="split"
+      />
+    </div>
+  );
+}
+```
+
