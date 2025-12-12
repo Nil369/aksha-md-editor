@@ -63,16 +63,23 @@ import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
 
-function App() {
-  const [markdown, setMarkdown] = useState('# Hello World');
+export default function App() {
+  const [markdown, setMarkdown] = useState("# Hello World\n\nStart editing!");
 
   return (
-    <MarkdownEditor
-      value={markdown}
-      onChange={setMarkdown}
-      theme="auto"
-      height="600px"
-    />
+    <div
+      style={{
+        borderRadius:"10px",
+      }}
+    >
+      <MarkdownEditor
+        value={markdown}
+        onChange={setMarkdown}
+        theme="light"
+        height="600px"
+        defaultViewMode="split"
+      />
+    </div>
   );
 }
 ```
@@ -238,24 +245,40 @@ Mermaid and ECharts are loaded on-demand from CDN and respect the current theme.
 
 ### Download Markdown
 
-Provide a button to download the current markdown:
+A Styled Download Button to download the markdown.
 
 ```tsx
-function DownloadButton({ text }: { text: string }) {
+function DownloadButton({ text }) {
   const handleDownload = () => {
-    const blob = new Blob([text], { type: 'text/markdown' });
+    const blob = new Blob([text], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'document.md';
+    a.download = "document.md";
     a.click();
     URL.revokeObjectURL(url);
   };
-  return <button onClick={handleDownload}>Download .md</button>;
+  return (
+    <button
+      onClick={handleDownload}
+      style={{
+        padding: "8px 16px",
+        background: "#7c3aed",
+        color: "white",
+        border: "none",
+        borderRadius: "6px",
+        cursor: "pointer",
+        fontWeight: "500",
+        marginTop: "10px",
+      }}
+    >
+      Download .md
+    </button>
+  );
 }
 ```
 
-## EditorTabs
+## ⌨️ EditorTabs
 
 View mode switcher component.
 
@@ -268,7 +291,7 @@ View mode switcher component.
 | `isFullscreen` | `boolean` | `false` | Fullscreen state |
 | `onFullscreenToggle` | `() => void` | `undefined` | Fullscreen toggle callback |
 
-## Hooks
+## 🪝Hooks
 
 ### useTheme
 
@@ -312,7 +335,7 @@ function SearchComponent() {
 }
 ```
 
-## Types
+## 🅰️ Types
 
 ### ViewMode
 
@@ -338,7 +361,7 @@ type WordWrap = 'on' | 'off' | 'wordWrapColumn';
 type ToolbarGroup = 'undo-redo' | 'formatting' | 'lists' | 'insert';
 ```
 
-## Styling
+## 🖼️ Styling
 
 The library automatically includes pre-built styles for markdown rendering (tables, code blocks, math formulas, etc.) when you import the component. No additional CSS imports are required.
 
@@ -362,24 +385,7 @@ You can override styles using CSS custom properties:
 }
 ```
 
-## Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl/Cmd + B` | Bold |
-| `Ctrl/Cmd + I` | Italic |
-| `Ctrl/Cmd + K` | Insert Link |
-| `Ctrl/Cmd` + \` | Inline Code |
-| `Ctrl/Cmd + S` | Save (triggers onSave) |
-| `Ctrl/Cmd + Z` | Undo |
-| `Ctrl/Cmd + Y` | Redo |
-| `Ctrl/Cmd + /` | Toggle Comment |
-
-## Browser Support
-
-- Chrome/Edge: Latest 2 versions
-- Firefox: Latest 2 versions
-- Safari: Latest 2 versions
+---
 
 ## ⚡ Performance Tips
 
@@ -415,7 +421,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
   <p>Made with ❤️ by Akash Halder</p>
   <p>
-    <a href="https://github.com/Nil369/aksha-md-editor">⭐ Star us on GitHub</a>
+    <a href="https://github.com/Nil369/aksha-md-editor" style="margin-right:20px;">⭐ Star us on GitHub
+    </a>
+    <a href="https://aksha-md-editor-docs.akashhalder.in/" style="margin-right:10px;">📜 Visit the Docs
+    </a>
   </p>
 </div>
 

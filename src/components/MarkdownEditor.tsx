@@ -158,9 +158,13 @@ flowchart TD
 <div align="center">
   <p>Made with ❤️ by Akash Halder</p>
   <p>
-    <a href="https://github.com/Nil369/aksha-md-editor">⭐ Star us on GitHub</a>
+    <a href="https://github.com/Nil369/aksha-md-editor" style="margin-right:20px;">⭐ Star us on GitHub
+    </a>
+    <a href="https://aksha-md-editor-docs.akashhalder.in/" style="margin-right:10px;">📜 Visit the Docs
+    </a>
   </p>
 </div>
+
 `;
 
 export function MarkdownEditor({

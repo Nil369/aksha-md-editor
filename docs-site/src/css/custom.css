@@ -32,3 +32,16 @@
   --ifm-color-primary-lightest: #ede9fe;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+
+/* Custom Text Selection Color */
+
+::selection {
+  background-color: #5e4fff41;
+  color: #17003d;
+}
+
+[data-theme='dark'] ::selection {
+  background-color: #7e4fff52;
+  color: #fefdff;
+}

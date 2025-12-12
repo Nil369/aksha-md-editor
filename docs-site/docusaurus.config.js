@@ -10,7 +10,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 const config = {
   title: 'Aksha MD Editor',
   tagline: 'A highly optimized production-ready Markdown Editor for React',
-  favicon: 'https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-logo.png',
+  favicon: './src/images/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://Nil369.github.io',
@@ -132,6 +132,11 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+      codeBlock: {
+        showCopyButton: true,
+        showWrapButton: true, 
+        defaultWrap: true,  
+      }
     }),
 };
 
