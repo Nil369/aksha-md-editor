@@ -1,7 +1,7 @@
 name: Publish to NPM
 
 permissions:
-  contents: write # required to push version + tags
+  contents: write   # required for pushing commits & tags
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # allow pushing tags
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -44,21 +44,18 @@ jobs:
         run: npm run build
 
       - name: Bump version
-        run: npm version patch -m "chore bump version to %s [skip ci]"
+        run: npm version patch -m "chore: bump version to %s [skip ci]"
 
-      - name: Gather release metadata
+      - name: Gather release metadata (safe escaping)
         id: meta
         run: |
           VERSION=$(node -p "require('./package.json').version")
           echo "tag=v${VERSION}" >> "$GITHUB_OUTPUT"
-          COMMIT_MSG=$(git log -1 --pretty=%B)
-          {
-            echo "commit_message<<'EOF'"
-            echo "${COMMIT_MSG}"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
 
-      - name: Push changes
+          COMMIT_MSG=$(git log -1 --pretty=%B | sed 's/%/%25/g; s/\r/%0D/g; s/\n/%0A/g')
+          echo "commit_message=${COMMIT_MSG}" >> "$GITHUB_OUTPUT"
+
+      - name: Push version + tags
         run: git push --follow-tags
 
       - name: Publish to NPM
@@ -66,7 +63,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Create GitHub release
+      - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
