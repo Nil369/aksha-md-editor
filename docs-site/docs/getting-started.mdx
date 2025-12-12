@@ -3,6 +3,9 @@ sidebar_position: 2
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import Heading from '@theme/Heading';
+import styles from '../src/pages/index.module.css';
+import LiveAkshaEditor from '../src/components/LiveAkshaEditor';
 
 # Getting Started
 
@@ -47,18 +50,25 @@ Install the package using your preferred package manager:
 ```tsx
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css'; // Import styles
+import 'aksha-md-editor/styles.css';
 
-function App() {
-  const [markdown, setMarkdown] = useState('# Hello World');
+export default function App() {
+  const [markdown, setMarkdown] = useState("# Hello World\n\nStart editing!");
 
   return (
-    <MarkdownEditor
-      value={markdown}
-      onChange={setMarkdown}
-      theme="auto"
-      height="600px"
-    />
+    <div
+      style={{
+        borderRadius:"10px",
+      }}
+    >
+      <MarkdownEditor
+        value={markdown}
+        onChange={setMarkdown}
+        theme="light"
+        height="700px"
+        defaultViewMode="split"
+      />
+    </div>
   );
 }
 ```
@@ -66,6 +76,18 @@ function App() {
 :::important CSS Import Required
 Don't forget to import the CSS file for proper styling!
 :::
+
+<section className={styles.demoSection}>
+  <div className="container">
+    <Heading as="h1" style={{ textAlign: 'center', marginBottom: '2rem', textDecoration: 'underline' }}>
+      Live Demo
+    </Heading>
+    <div className="container" style={{ marginTop: "1rem", border: "2px solid #B7B9BD", backgroundColor: "#e2f2ffef", borderRadius: "8px", padding: "1rem" }}>
+      <LiveAkshaEditor />
+    </div>
+
+  </div>
+</section>
 
 ---
 
