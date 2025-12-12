@@ -97,6 +97,7 @@ export const Editor = memo(function Editor({
   const [showLineSpacingMenu, setShowLineSpacingMenu] = useState(false);
   const [showTableMenu, setShowTableMenu] = useState(false);
   const [currentZoom, setCurrentZoom] = useState(100);
+  const [customFontSize, setCustomFontSize] = useState("");
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -490,6 +491,10 @@ export const Editor = memo(function Editor({
   const applyColor = useCallback(
     (color: string) => {
       applyWrap(`<span style="color: ${color}">`, "</span>");
+      setActiveTextColor(color);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("aksha_active_text_color", color);
+      }
       setShowColorMenu(false);
       setRecentTextColors((prev) => {
         const next = [color, ...prev.filter((c) => c !== color)].slice(0, 6);
@@ -507,6 +512,10 @@ export const Editor = memo(function Editor({
   const applyHighlight = useCallback(
     (color: string) => {
       applyWrap(`<mark style="background-color: ${color}">`, "</mark>");
+      setActiveHighlightColor(color);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("aksha_active_highlight_color", color);
+      }
       setShowHighlightMenu(false);
       setRecentHighlightColors((prev) => {
         const next = [color, ...prev.filter((c) => c !== color)].slice(0, 6);
@@ -1741,8 +1750,7 @@ export const Editor = memo(function Editor({
                   "18px",
                   "20px",
                   "24px",
-                  "28px",
-                  "32px",
+                  "28px"
                 ].map((size) => (
                   <div
                     key={size}
@@ -1761,6 +1769,47 @@ export const Editor = memo(function Editor({
                     <span style={{ marginLeft: "8px" }}>{size}</span>
                   </div>
                 ))}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 8,
+                    alignItems: "center",
+                    marginTop: 10,
+                  }}
+                >
+                  <input
+                    type="number"
+                    value={customFontSize}
+                    onChange={(e) => setCustomFontSize(e.target.value)}
+                    placeholder="px"
+                    style={{
+                      width: 80,
+                      padding: "6px 8px",
+                      borderRadius: 6,
+                      border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
+                      background: isDark ? "#111827" : "#fff",
+                      color: isDark ? "#f9fafb" : "#111827",
+                      fontSize: 12,
+                    }}
+                  />
+                  <button
+                    type="button"
+                    style={{
+                      ...buttonStyle,
+                      minWidth: 60,
+                      padding: "6px 10px",
+                    }}
+                    onClick={() => {
+                      const raw = customFontSize.trim();
+                      if (!raw) return;
+                      const normalized = /^\d+$/.test(raw) ? `${raw}px` : raw;
+                      applyFontSize(normalized);
+                      setCustomFontSize("");
+                    }}
+                  >
+                    Apply
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -1987,7 +2036,10 @@ export const Editor = memo(function Editor({
             e.currentTarget.style.background = "transparent";
           }}
         >
-          <span style={{fontWeight: "semi-bold"}}>Aksha MD Editor</span> - <span style={{color:"#8E8CFD", fontWeight: "semi-bold"}}>Akash Halder Technologia</span>
+          <span style={{ fontWeight: "semi-bold" }}>Aksha MD Editor</span> -{" "}
+          <span style={{ color: "#8E8CFD", fontWeight: "semi-bold" }}>
+            Akash Halder Technologia
+          </span>
         </a>
       </div>
     </div>

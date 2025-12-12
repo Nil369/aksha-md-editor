@@ -1009,3 +1009,10 @@ div .slider {
 div .slider:hover {
   background: rgba(58, 57, 130, 0.742)important;
 }
+
+/* Monaco Editor Find Widget Fixes */
+.monaco-editor .find-widget {
+  padding: 3px !important;
+  margin: 10px !important;
+  border-radius: 3px !important;
+}

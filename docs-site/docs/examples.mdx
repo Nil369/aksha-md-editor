@@ -10,7 +10,7 @@ Explore real-world examples and use cases for Aksha MD Editor with interactive c
 
 A simple markdown editor with default settings:
 
-```tsx
+```tsx {3,6,22,9-16}
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
@@ -29,13 +29,21 @@ function BasicEditor() {
     </div>
   );
 }
+
+export default function App() {
+  return (
+    <BasicEditor/>
+  );
+}
 ```
+
+---
 
 ## Styled Custom Editor
 
 Customize the editor with your own styling:
 
-```tsx 
+```tsx {8-30,35}
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
@@ -67,13 +75,21 @@ function StyledEditor() {
     </div>
   );
 }
+
+export default function App() {
+  return (
+    <StyledEditor/>
+  );
+}
 ```
+
+---
 
 ## Blog Post Editor
 
 A complete blog post editor with save functionality:
 
-```tsx 
+```tsx {47}
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
@@ -117,13 +133,21 @@ function BlogEditor() {
     </div>
   );
 }
+
+export default function App() {
+  return (
+    <BlogEditor/>
+  );
+}
 ```
+
+---
 
 ## Documentation Viewer
 
 A read-only documentation viewer:
 
-```tsx 
+```tsx {22}
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
 
@@ -142,13 +166,21 @@ function DocViewer() {
     </div>
   );
 }
+
+export default function App() {
+  return (
+    <DocViewer/>
+  );
+}
 ```
+
+---
 
 ## Note Taking App
 
 A note-taking application with auto-save:
 
-```tsx 
+```tsx {5-15,49}
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
@@ -194,13 +226,21 @@ function NoteTaker() {
     </div>
   );
 }
+
+export default function App() {
+  return (
+    <NoteTaker/>
+  );
+}
 ```
+
+---
 
 ## Dark Theme Editor
 
 An editor with dark theme:
 
-```tsx 
+```tsx {6,9-14,28} 
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
@@ -225,13 +265,21 @@ function DarkEditor() {
     </div>
   );
 }
+
+export default function App() {
+  return (
+    <DarkEditor/>
+  );
+}
 ```
+
+---
 
 ## Custom Styling
 
 Apply custom CSS to the editor:
 
-```tsx 
+```tsx {6,26} 
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
@@ -254,13 +302,22 @@ function CustomStyledEditor() {
     </div>
   );
 }
+
+export default function App() {
+  return (
+    <CustomStyledEditor/>
+  );
+}
+
 ```
+
+---
 
 ## Math Equations Example
 
 Editor with math equation support:
 
-```tsx 
+```tsx {6,23} 
 import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css';
@@ -280,31 +337,12 @@ function MathEditor() {
     </div>
   );
 }
-```
 
-## Checklist Example
-
-Interactive checklist with bidirectional sync:
-
-```tsx 
-import { useState } from 'react';
-import { MarkdownEditor } from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
-
-function ChecklistEditor() {
-  const [tasks, setTasks] = useState("# My Tasks\n\n## Today\n\n- [ ] Complete documentation\n- [x] Review pull requests\n- [ ] Update dependencies\n- [ ] Write tests\n\n## This Week\n\n- [ ] Plan next sprint\n- [ ] Code review\n- [ ] Deploy to staging");
-
+export default function App() {
   return (
-    <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
-      <MarkdownEditor
-        value={tasks}
-        onChange={setTasks}
-        theme="auto"
-        height="500px"
-        defaultViewMode="split"
-      />
-    </div>
+    <MathEditor/>
   );
 }
 ```
 
+---

@@ -116,7 +116,7 @@ function HomepageDemo() {
         <div className="row" style={{ marginBottom: '2rem' }}>
           <div className="col">
             <img
-              src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-1.png"
+              src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/interactive-diagrams.png"
               alt="Aksha MD Editor - Split View Mode"
               style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
             />
@@ -125,7 +125,7 @@ function HomepageDemo() {
         <div className="row">
           <div className="col">
             <img
-              src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-2.png"
+              src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/dark-mode-preview.png"
               alt="Aksha MD Editor - Dark Theme"
               style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
             />

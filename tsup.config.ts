@@ -6,7 +6,7 @@ export default defineConfig({
     sourcemap: true,
     clean: true,
     minify: true,
-    format: ["esm", "cjs"],
+    format: ["esm", "cjs","iife"],
     external: ["react", "react-dom", "@monaco-editor/react"],
     esbuildOptions(options) {
         options.banner = {
