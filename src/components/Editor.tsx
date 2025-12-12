@@ -36,25 +36,46 @@ import {
   Outdent,
   ALargeSmall,
   ArrowUpDown,
+  X,
 } from "lucide-react";
 
+/**
+ * Props for the Editor component
+ */
 type EditorProps = {
+  /** The markdown content value */
   value: string;
+  /** Callback when content changes */
   onChange: (value: string) => void;
+  /** Debounced callback for content changes (fires after 300ms of inactivity) */
   onDebouncedChange?: (value: string) => void;
+  /** Theme mode: 'light', 'dark', or 'auto' (default: 'auto') */
   theme?: ThemeMode;
+  /** Height of the editor */
   height?: string;
+  /** Whether to show line numbers */
   showLineNumbers?: boolean;
+  /** Word wrap mode: 'on', 'off', or 'wordWrapColumn' */
   wordWrap?: WordWrap;
+  /** Font size in pixels (default: 14) */
   fontSize?: number;
+  /** Whether to show the minimap */
   minimap?: boolean;
+  /** Whether the editor is read-only */
   readOnly?: boolean;
+  /** Placeholder text when editor is empty */
   placeholder?: string;
+  /** Whether to show the toolbar */
   enableToolbar?: boolean;
+  /** Enable performance mode (disables some features for better performance) */
   performanceMode?: boolean;
+  /** Toolbar groups to display */
   toolbarGroups?: ToolbarGroup[];
+  /** Callback when save is triggered (Ctrl+S) */
   onSave?: (value: string) => void;
+  /** Additional CSS class name */
   className?: string;
+  /** Callback when scroll position changes (for sync with preview) */
   onScrollChange?: (ratio: number) => void;
 };
 
@@ -65,6 +86,38 @@ const ALL_GROUPS: ToolbarGroup[] = [
   "insert",
 ];
 
+/**
+ * **Editor component** - Monaco-based markdown editor with rich toolbar
+ *
+ * This component provides a Monaco Editor instance with a comprehensive
+ * toolbar for markdown editing. It supports various formatting options,
+ * keyboard shortcuts, and customization.
+ *
+ * Features:
+ * - Monaco Editor integration
+ * - Rich formatting toolbar
+ * - Keyboard shortcuts (Ctrl+B, Ctrl+I, etc.)
+ * - Text colors and highlights
+ * - Emoji picker
+ * - Table insertion
+ * - Code block insertion
+ * - Undo/redo support
+ * - Zoom controls
+ * - Find and replace
+ *
+ * @param props - Editor component props
+ * @returns The rendered editor component
+ *
+ * @example
+ * ```tsx
+ * <Editor
+ *   value={content}
+ *   onChange={setContent}
+ *   theme="dark"
+ *   enableToolbar={true}
+ * />
+ * ```
+ */
 export const Editor = memo(function Editor({
   value,
   onChange,
@@ -103,7 +156,11 @@ export const Editor = memo(function Editor({
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (!target.closest(".toolbar")) {
+      // Don't close if clicking inside toolbar or any dropdown menu
+      if (
+        !target.closest(".toolbar") &&
+        !target.closest("[data-dropdown-menu]")
+      ) {
         setShowHeadingMenu(false);
         setShowColorMenu(false);
         setShowHighlightMenu(false);
@@ -386,7 +443,8 @@ export const Editor = memo(function Editor({
   const insertEmoji = useCallback(
     (emoji: string) => {
       insertText(emoji);
-      setShowEmojiMenu(false);
+      // Keep the emoji menu open so users can add multiple emojis
+      // Menu will only close when user clicks the close button or outside
     },
     [insertText]
   );
@@ -786,6 +844,8 @@ export const Editor = memo(function Editor({
             background: isDark ? "#1f2937" : "#f9fafb",
             flexWrap: "wrap",
             position: "relative",
+            overflow: "visible",
+            zIndex: 1,
           }}
         >
           {/* Undo/Redo */}
@@ -1559,14 +1619,66 @@ export const Editor = memo(function Editor({
             </button>
             {showEmojiMenu && (
               <div
+                data-dropdown-menu="emoji"
+                onClick={(e) => e.stopPropagation()}
                 style={{
-                  ...dropdownStyle,
+                  position: "absolute",
+                  top: "100%",
+                  right: 0,
+                  marginTop: "4px",
+                  background: isDark ? "#1f2937" : "#ffffff",
+                  border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
+                  borderRadius: "6px",
+                  boxShadow:
+                    "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+                  zIndex: 1000,
                   padding: "12px",
-                  maxWidth: "300px",
+                  width: "300px",
                   maxHeight: "400px",
                   overflowY: "auto",
+                  overflowX: "hidden",
                 }}
               >
+                {/* Close button */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowEmojiMenu(false);
+                  }}
+                  style={{
+                    position: "absolute",
+                    top: "8px",
+                    right: "8px",
+                    padding: "4px",
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    borderRadius: "4px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: isDark ? "#9ca3af" : "#6b7280",
+                    zIndex: 1,
+                  }}
+                  title="Close emoji picker"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = isDark
+                      ? "#374151"
+                      : "#f3f4f6";
+                    e.currentTarget.style.color = isDark
+                      ? "#f3f4f6"
+                      : "#111827";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.color = isDark
+                      ? "#9ca3af"
+                      : "#6b7280";
+                  }}
+                >
+                  <X size={16} />
+                </button>
                 <div
                   style={{
                     display: "grid",
@@ -1589,6 +1701,8 @@ export const Editor = memo(function Editor({
                     "🙃",
                     "😉",
                     "😌",
+                    "❤️",
+                    "💖",
                     "😍",
                     "🥰",
                     "😘",
@@ -1689,7 +1803,10 @@ export const Editor = memo(function Editor({
                   ].map((emoji) => (
                     <button
                       key={emoji}
-                      onClick={() => insertEmoji(emoji)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        insertEmoji(emoji);
+                      }}
                       style={{
                         padding: "4px",
                         fontSize: "18px",
@@ -1750,7 +1867,7 @@ export const Editor = memo(function Editor({
                   "18px",
                   "20px",
                   "24px",
-                  "28px"
+                  "28px",
                 ].map((size) => (
                   <div
                     key={size}
