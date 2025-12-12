@@ -10,32 +10,26 @@ Explore real-world examples and use cases for Aksha MD Editor with interactive c
 
 A simple markdown editor with default settings:
 
-```tsx {3,6,22,9-16}
-import { useState } from 'react';
-import { MarkdownEditor } from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
-
-function BasicEditor() {
-  const [markdown, setMarkdown] = useState("# Welcome to Aksha MD Editor\n\nThis is a **powerful** markdown editor with  preview.\n\n## Features\n\n- ✨ Monaco Editor integration\n- 🎨 Theme support\n- 📝 GitHub Flavored Markdown\n- 🧮 Math equations support");
+```tsx live
+function App() {
+  
+  const [markdown, setMarkdown] = React.useState(
+    "# Welcome to Aksha MD Editor\n\nThis is a powerful markdown editor."
+  );
 
   return (
-    <div style={{ height: '500px', border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
+    <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
       <MarkdownEditor
         value={markdown}
         onChange={setMarkdown}
-        theme="auto"
+        theme="light"
         height="500px"
       />
     </div>
   );
 }
-
-export default function App() {
-  return (
-    <BasicEditor/>
-  );
-}
 ```
+
 
 ---
 

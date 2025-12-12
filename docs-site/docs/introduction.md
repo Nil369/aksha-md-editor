@@ -18,7 +18,7 @@ Aksha MD Editor is a drop-in replacement for traditional text processors, built 
 
 ## Preview
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '20px', marginBottom: '20px' }}>
+<div >
   <div>
     <img 
       src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/preview-1.png" 

@@ -5,6 +5,7 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
+import LiveAkshaEditor from '../components/LiveAkshaEditor';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -60,6 +61,9 @@ function HomepageFeatures() {
   return (
     <section className={styles.features}>
       <div className="container">
+        <Heading as="h1" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          Features
+        </Heading>
         <div className="row">
           {features.map((feature, idx) => (
             <div key={idx} className={clsx('col col--4', styles.feature)}>
@@ -70,50 +74,28 @@ function HomepageFeatures() {
             </div>
           ))}
         </div>
+        <Link
+          className="button button--primary button--lg"
+          to="/docs/getting-started"
+          style={{ display: 'block', width: 'max-content', margin: '2rem auto 0' }}
+        >
+          Explore the Docs 📜
+        </Link>
       </div>
     </section>
   );
 }
 
-function HomepageCode() {
-  return (
-    <section className={styles.codeSection}>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <Heading as="h2">Quick Start</Heading>
-            <pre>
-              <code>npm install aksha-md-editor</code>
-            </pre>
-            <pre>
-              <code>{`import {MarkdownEditor}  from 'aksha-md-editor';
 
-function App() {
-  return <MarkdownEditor defaultViewMode="split" />;
-}`}</code>
-            </pre>
-            <div style={{ marginTop: '2rem' }}>
-              <Link
-                className="button button--primary button--lg"
-                to="/docs/introduction">
-                Read the Documentation →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function HomepageDemo() {
   return (
     <section className={styles.demoSection}>
       <div className="container">
-        <Heading as="h2" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <Heading as="h1" style={{ textAlign: 'center', marginBottom: '2rem', textDecoration: 'underline' }}>
           See it in Action
         </Heading>
-        <div className="row" style={{ marginBottom: '2rem' }}>
+        {/* <div className="row" style={{ marginBottom: '2rem' }}>
           <div className="col">
             <img
               src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/interactive-diagrams.png"
@@ -130,7 +112,11 @@ function HomepageDemo() {
               style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
             />
           </div>
+        </div> */}
+        <div className="container" style={{ marginTop: "3rem", border: "2px solid #B7B9BD", backgroundColor: "#f5edffef", borderRadius: "8px", padding: "1rem" }}>
+          <LiveAkshaEditor />
         </div>
+
       </div>
     </section>
   );
@@ -144,9 +130,8 @@ export default function Home() {
       description={`${siteConfig.title} - A Highly Optimized Markdown Editor for React`}>
       <HomepageHeader />
       <main>
-        <HomepageFeatures />
         <HomepageDemo />
-        {/* <HomepageCode /> */}
+        <HomepageFeatures />
       </main>
     </Layout>
   );

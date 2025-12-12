@@ -5,12 +5,13 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import { themes as prismThemes } from 'prism-react-renderer';
+import { Github } from 'lucide-react';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Aksha MD Editor',
   tagline: 'A highly optimized production-ready Markdown Editor for React',
-  favicon: 'https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-logo.png',
+  favicon: './favicon.ico',
 
   // Set the production url of your site here
   url: 'https://Nil369.github.io',
@@ -33,7 +34,8 @@ const config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'hi', 'zh-Hans'],
+    path: 'i18n'
   },
 
   presets: [
@@ -45,6 +47,8 @@ const config = {
           sidebarPath: './sidebars.js',
           editUrl:
             'https://github.com/Nil369/aksha-md-editor/tree/main/docs-site/',
+          path: 'docs',
+          routeBasePath: 'docs'
         },
         blog: false,
         theme: {
@@ -84,6 +88,10 @@ const config = {
             href: 'https://github.com/Nil369/aksha-md-editor',
             label: 'GitHub',
             position: 'right',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right', // or 'left'
           },
         ],
       },
@@ -130,12 +138,14 @@ const config = {
       },
       prism: {
         theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        darkTheme: prismThemes.vsDark,
+        showLineNumbers: true,
       },
       codeBlock: {
         showCopyButton: true,
-        showWrapButton: true, 
-        defaultWrap: true,  
+        showWrapButton: true,
+        defaultWrap: true,
+        showLineNumbers: true,
       }
     }),
 };
