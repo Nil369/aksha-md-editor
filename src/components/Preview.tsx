@@ -11,16 +11,29 @@ import type { ThemeMode } from "../types";
 import "katex/dist/katex.css";
 import "../../styles.css";
 
+/**
+ * Props for the Preview component
+ */
 type PreviewProps = {
+  /** The markdown content to render */
   content: string;
+  /** Theme mode: 'light', 'dark', or 'auto' (default: 'auto') */
   theme?: ThemeMode;
+  /** Additional CSS class name */
   className?: string;
+  /** Callback to get the scroll container reference */
   onScrollContainerRef?: (el: HTMLDivElement | null) => void;
+  /** Whether to show the table of contents sidebar */
   showSidebar?: boolean;
+  /** Callback to toggle the sidebar visibility */
   onToggleSidebar?: () => void;
+  /** Callback when content changes (e.g., checkbox toggles) */
   onContentChange?: (newContent: string) => void;
 };
 
+/**
+ * Skeleton loader component for preview loading state
+ */
 const Skeleton = ({
   className = "",
   style = {},
@@ -39,6 +52,22 @@ const Skeleton = ({
   />
 );
 
+/**
+ * **Preview component** that renders markdown content as HTML
+ * 
+ * Features:
+ * - Real-time markdown to HTML conversion
+ * - Syntax highlighting for code blocks
+ * - KaTeX math rendering
+ * - Mermaid diagram support
+ * - ECharts chart support
+ * - Table of contents sidebar
+ * - Responsive design
+ * - Dark/light theme support
+ * 
+ * @param props - Preview component props
+ * @returns The rendered preview component
+ */
 export const Preview = memo(function Preview({
   content,
   theme = "auto",
@@ -70,7 +99,7 @@ export const Preview = memo(function Preview({
   // Dynamic theme loading for highlight.js
   useEffect(() => {
     if (typeof document === "undefined") return;
-    
+
     // Load highlight.js theme
     const highlightLink = document.createElement("link");
     highlightLink.rel = "stylesheet";
@@ -89,16 +118,17 @@ export const Preview = memo(function Preview({
 
   useEffect(() => {
     const controller = new AbortController();
-    
+
     const render = async () => {
-      if (!content) {
+      // Safely check if content is empty or whitespace-only
+      if (!content || (typeof content === "string" && !content.trim())) {
         setHtml("");
         setIsProcessing(false);
         return;
       }
 
       setIsProcessing(true);
-      
+
       try {
         const rehypeMacFigure = () => (tree: any) => {
           const visit = (node: any, index?: number, parent?: any) => {
@@ -387,14 +417,14 @@ export const Preview = memo(function Preview({
         const existing = Array.from(document.scripts).find((s) =>
           s.src.includes(src)
         );
-      if (existing) return resolve();
+        if (existing) return resolve();
         const script = document.createElement("script");
-      script.src = src;
-      script.async = true;
-      script.onload = () => resolve();
+        script.src = src;
+        script.async = true;
+        script.onload = () => resolve();
         script.onerror = () => reject(new Error("failed to load " + src));
-      document.head.appendChild(script);
-    });
+        document.head.appendChild(script);
+      });
 
     const initMermaid = async () => {
       if (typeof window === "undefined" || !containerRef.current) return;
@@ -441,7 +471,7 @@ export const Preview = memo(function Preview({
               if ((el as any).__mermaid_cleanup) {
                 (el as any).__mermaid_cleanup();
               }
-              
+
               // Clear any existing content
               const text = el.textContent || "";
               if (text.trim()) {
@@ -450,54 +480,65 @@ export const Preview = memo(function Preview({
                   el.id = `mermaid-${Math.random().toString(36).slice(2)}`;
                 }
                 // Re-initialize the diagram
-                mermaid.run({
-                  nodes: [el as HTMLElement],
-                }).then(() => {
-                  // Wait for SVG to be rendered
-                  setTimeout(() => {
-                    // Add interactivity - hover effects, panning, zoom, and controls
-                    const svg = el.querySelector("svg");
-                    if (svg && !(el as any).__mermaid_wrapped) {
-                      (el as any).__mermaid_wrapped = true;
-                    // Wrap SVG in a container for controls
-                    const wrapper = document.createElement("div");
-                    wrapper.style.position = "relative";
-                    wrapper.style.display = "inline-block";
-                    wrapper.style.width = "100%";
-                    wrapper.style.overflow = "hidden";
-                    wrapper.style.borderRadius = "8px";
-                    wrapper.style.background = resolvedTheme === "dark" ? "#1f2937" : "#f9fafb";
-                    wrapper.style.border = `1px solid ${resolvedTheme === "dark" ? "#374151" : "#e5e7eb"}`;
-                    
-                    // Create controls container (like GitHub)
-                    const controlsContainer = document.createElement("div");
-                    controlsContainer.style.position = "absolute";
-                    controlsContainer.style.top = "8px";
-                    controlsContainer.style.right = "8px";
-                    controlsContainer.style.display = "flex";
-                    controlsContainer.style.gap = "4px";
-                    controlsContainer.style.zIndex = "10";
-                    controlsContainer.style.opacity = "0.8";
-                    controlsContainer.style.transition = "opacity 0.2s";
-                    
-                    wrapper.addEventListener("mouseenter", () => {
-                      controlsContainer.style.opacity = "1";
-                    });
-                    wrapper.addEventListener("mouseleave", () => {
-                      controlsContainer.style.opacity = "0.8";
-                    });
+                mermaid
+                  .run({
+                    nodes: [el as HTMLElement],
+                  })
+                  .then(() => {
+                    // Wait for SVG to be rendered
+                    setTimeout(() => {
+                      // Add interactivity - hover effects, panning, zoom, and controls
+                      const svg = el.querySelector("svg");
+                      if (svg && !(el as any).__mermaid_wrapped) {
+                        (el as any).__mermaid_wrapped = true;
+                        // Wrap SVG in a container for controls
+                        const wrapper = document.createElement("div");
+                        wrapper.style.position = "relative";
+                        wrapper.style.display = "inline-block";
+                        wrapper.style.width = "100%";
+                        wrapper.style.overflow = "hidden";
+                        wrapper.style.borderRadius = "8px";
+                        wrapper.style.background =
+                          resolvedTheme === "dark" ? "#1f2937" : "#f9fafb";
+                        wrapper.style.border = `1px solid ${
+                          resolvedTheme === "dark" ? "#374151" : "#e5e7eb"
+                        }`;
 
-                    // Zoom In button
-                    const zoomInBtn = document.createElement("button");
-                    zoomInBtn.innerHTML = "➕";
-                    zoomInBtn.title = "Zoom In";
-                    zoomInBtn.style.cssText = `
+                        // Create controls container (like GitHub)
+                        const controlsContainer = document.createElement("div");
+                        controlsContainer.style.position = "absolute";
+                        controlsContainer.style.top = "8px";
+                        controlsContainer.style.right = "8px";
+                        controlsContainer.style.display = "flex";
+                        controlsContainer.style.gap = "4px";
+                        controlsContainer.style.zIndex = "10";
+                        controlsContainer.style.opacity = "0.8";
+                        controlsContainer.style.transition = "opacity 0.2s";
+
+                        wrapper.addEventListener("mouseenter", () => {
+                          controlsContainer.style.opacity = "1";
+                        });
+                        wrapper.addEventListener("mouseleave", () => {
+                          controlsContainer.style.opacity = "0.8";
+                        });
+
+                        // Zoom In button
+                        const zoomInBtn = document.createElement("button");
+                        zoomInBtn.innerHTML = "➕";
+                        zoomInBtn.title = "Zoom In";
+                        zoomInBtn.style.cssText = `
                       width: 32px;
                       height: 32px;
-                      border: 1px solid ${resolvedTheme === "dark" ? "#4b5563" : "#d1d5db"};
+                      border: 1px solid ${
+                        resolvedTheme === "dark" ? "#4b5563" : "#d1d5db"
+                      };
                       border-radius: 6px;
-                      background: ${resolvedTheme === "dark" ? "#374151" : "#ffffff"};
-                      color: ${resolvedTheme === "dark" ? "#e5e7eb" : "#374151"};
+                      background: ${
+                        resolvedTheme === "dark" ? "#374151" : "#ffffff"
+                      };
+                      color: ${
+                        resolvedTheme === "dark" ? "#e5e7eb" : "#374151"
+                      };
                       cursor: pointer;
                       font-size: 16px;
                       display: flex;
@@ -505,157 +546,186 @@ export const Preview = memo(function Preview({
                       justify-content: center;
                       transition: all 0.2s;
                     `;
-                    zoomInBtn.onmouseenter = () => {
-                      zoomInBtn.style.background = resolvedTheme === "dark" ? "#4b5563" : "#f3f4f6";
-                    };
-                    zoomInBtn.onmouseleave = () => {
-                      zoomInBtn.style.background = resolvedTheme === "dark" ? "#374151" : "#ffffff";
-                    };
-
-                    // Zoom Out button
-                    const zoomOutBtn = document.createElement("button");
-                    zoomOutBtn.innerHTML = "➖";
-                    zoomOutBtn.title = "Zoom Out";
-                    zoomOutBtn.style.cssText = zoomInBtn.style.cssText;
-
-                    // Reset button
-                    const resetBtn = document.createElement("button");
-                    resetBtn.innerHTML = "↻";
-                    resetBtn.title = "Reset View";
-                    resetBtn.style.cssText = zoomInBtn.style.cssText;
-
-                    controlsContainer.appendChild(zoomInBtn);
-                    controlsContainer.appendChild(zoomOutBtn);
-                    controlsContainer.appendChild(resetBtn);
-
-                    // Insert wrapper before SVG
-                    el.parentNode?.insertBefore(wrapper, el);
-                    wrapper.appendChild(el);
-                    wrapper.appendChild(controlsContainer);
-
-                    // Transform state
-                    let currentScale = 1;
-                    let currentTranslate = { x: 0, y: 0 };
-                    const minScale = 0.5;
-                    const maxScale = 3;
-                    const scaleStep = 0.2;
-
-                    const applyTransform = () => {
-                      svg.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px) scale(${currentScale})`;
-                      svg.style.transformOrigin = "center center";
-                    };
-
-                    // Enable panning
-                    let isPanning = false;
-                    let startX = 0;
-                    let startY = 0;
-                    let panStartTranslate = { x: 0, y: 0 };
-
-                    svg.style.cursor = "grab";
-                    svg.style.userSelect = "none";
-                    svg.style.transition = "transform 0.1s";
-
-                    svg.addEventListener("mousedown", (e) => {
-                      if (e.button === 0) { // Left mouse button
-                        isPanning = true;
-                        startX = e.clientX;
-                        startY = e.clientY;
-                        panStartTranslate = { ...currentTranslate };
-                        svg.style.cursor = "grabbing";
-                        e.preventDefault();
-                      }
-                    });
-
-                    const handleMouseMove = (e: MouseEvent) => {
-                      if (isPanning) {
-                        const dx = e.clientX - startX;
-                        const dy = e.clientY - startY;
-                        currentTranslate = {
-                          x: panStartTranslate.x + dx,
-                          y: panStartTranslate.y + dy,
+                        zoomInBtn.onmouseenter = () => {
+                          zoomInBtn.style.background =
+                            resolvedTheme === "dark" ? "#4b5563" : "#f3f4f6";
                         };
-                        applyTransform();
+                        zoomInBtn.onmouseleave = () => {
+                          zoomInBtn.style.background =
+                            resolvedTheme === "dark" ? "#374151" : "#ffffff";
+                        };
+
+                        // Zoom Out button
+                        const zoomOutBtn = document.createElement("button");
+                        zoomOutBtn.innerHTML = "➖";
+                        zoomOutBtn.title = "Zoom Out";
+                        zoomOutBtn.style.cssText = zoomInBtn.style.cssText;
+
+                        // Reset button
+                        const resetBtn = document.createElement("button");
+                        resetBtn.innerHTML = "↻";
+                        resetBtn.title = "Reset View";
+                        resetBtn.style.cssText = zoomInBtn.style.cssText;
+
+                        controlsContainer.appendChild(zoomInBtn);
+                        controlsContainer.appendChild(zoomOutBtn);
+                        controlsContainer.appendChild(resetBtn);
+
+                        // Insert wrapper before SVG
+                        el.parentNode?.insertBefore(wrapper, el);
+                        wrapper.appendChild(el);
+                        wrapper.appendChild(controlsContainer);
+
+                        // Transform state
+                        let currentScale = 1;
+                        let currentTranslate = { x: 0, y: 0 };
+                        const minScale = 0.5;
+                        const maxScale = 3;
+                        const scaleStep = 0.2;
+
+                        const applyTransform = () => {
+                          svg.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px) scale(${currentScale})`;
+                          svg.style.transformOrigin = "center center";
+                        };
+
+                        // Enable panning
+                        let isPanning = false;
+                        let startX = 0;
+                        let startY = 0;
+                        let panStartTranslate = { x: 0, y: 0 };
+
+                        svg.style.cursor = "grab";
+                        svg.style.userSelect = "none";
+                        svg.style.transition = "transform 0.1s";
+
+                        svg.addEventListener("mousedown", (e) => {
+                          if (e.button === 0) {
+                            // Left mouse button
+                            isPanning = true;
+                            startX = e.clientX;
+                            startY = e.clientY;
+                            panStartTranslate = { ...currentTranslate };
+                            svg.style.cursor = "grabbing";
+                            e.preventDefault();
+                          }
+                        });
+
+                        const handleMouseMove = (e: MouseEvent) => {
+                          if (isPanning) {
+                            const dx = e.clientX - startX;
+                            const dy = e.clientY - startY;
+                            currentTranslate = {
+                              x: panStartTranslate.x + dx,
+                              y: panStartTranslate.y + dy,
+                            };
+                            applyTransform();
+                          }
+                        };
+
+                        const handleMouseUp = () => {
+                          isPanning = false;
+                          svg.style.cursor = "grab";
+                        };
+
+                        document.addEventListener("mousemove", handleMouseMove);
+                        document.addEventListener("mouseup", handleMouseUp);
+
+                        // Zoom with mouse wheel
+                        const handleWheel = (e: WheelEvent) => {
+                          e.preventDefault();
+                          const delta = e.deltaY > 0 ? -scaleStep : scaleStep;
+                          const newScale = Math.max(
+                            minScale,
+                            Math.min(maxScale, currentScale + delta)
+                          );
+
+                          // Zoom towards mouse position
+                          const rect = svg.getBoundingClientRect();
+                          const mouseX = e.clientX - rect.left - rect.width / 2;
+                          const mouseY = e.clientY - rect.top - rect.height / 2;
+
+                          const scaleChange = newScale / currentScale;
+                          currentTranslate.x =
+                            mouseX -
+                            (mouseX - currentTranslate.x) * scaleChange;
+                          currentTranslate.y =
+                            mouseY -
+                            (mouseY - currentTranslate.y) * scaleChange;
+                          currentScale = newScale;
+                          applyTransform();
+                        };
+
+                        wrapper.addEventListener("wheel", handleWheel, {
+                          passive: false,
+                        });
+
+                        // Button handlers
+                        zoomInBtn.addEventListener("click", (e) => {
+                          e.stopPropagation();
+                          if (currentScale < maxScale) {
+                            currentScale = Math.min(
+                              maxScale,
+                              currentScale + scaleStep
+                            );
+                            applyTransform();
+                          }
+                        });
+
+                        zoomOutBtn.addEventListener("click", (e) => {
+                          e.stopPropagation();
+                          if (currentScale > minScale) {
+                            currentScale = Math.max(
+                              minScale,
+                              currentScale - scaleStep
+                            );
+                            applyTransform();
+                          }
+                        });
+
+                        resetBtn.addEventListener("click", (e) => {
+                          e.stopPropagation();
+                          currentScale = 1;
+                          currentTranslate = { x: 0, y: 0 };
+                          applyTransform();
+                        });
+
+                        // Add hover effects to nodes
+                        const nodes = svg.querySelectorAll(
+                          "g.node, g.edgeLabel, g.edgePath"
+                        );
+                        nodes.forEach((node) => {
+                          (node as SVGElement).style.transition =
+                            "opacity 0.2s, filter 0.2s";
+                          node.addEventListener("mouseenter", () => {
+                            (node as SVGElement).style.opacity = "0.9";
+                            (node as SVGElement).style.filter =
+                              "brightness(1.1)";
+                          });
+                          node.addEventListener("mouseleave", () => {
+                            (node as SVGElement).style.opacity = "1";
+                            (node as SVGElement).style.filter = "none";
+                          });
+                        });
+
+                        // Cleanup on re-render
+                        (el as any).__mermaid_cleanup = () => {
+                          document.removeEventListener(
+                            "mousemove",
+                            handleMouseMove
+                          );
+                          document.removeEventListener(
+                            "mouseup",
+                            handleMouseUp
+                          );
+                          wrapper.removeEventListener("wheel", handleWheel);
+                          (el as any).__mermaid_wrapped = false;
+                        };
                       }
-                    };
-
-                    const handleMouseUp = () => {
-                      isPanning = false;
-                      svg.style.cursor = "grab";
-                    };
-
-                    document.addEventListener("mousemove", handleMouseMove);
-                    document.addEventListener("mouseup", handleMouseUp);
-
-                    // Zoom with mouse wheel
-                    const handleWheel = (e: WheelEvent) => {
-                      e.preventDefault();
-                      const delta = e.deltaY > 0 ? -scaleStep : scaleStep;
-                      const newScale = Math.max(minScale, Math.min(maxScale, currentScale + delta));
-                      
-                      // Zoom towards mouse position
-                      const rect = svg.getBoundingClientRect();
-                      const mouseX = e.clientX - rect.left - rect.width / 2;
-                      const mouseY = e.clientY - rect.top - rect.height / 2;
-                      
-                      const scaleChange = newScale / currentScale;
-                      currentTranslate.x = mouseX - (mouseX - currentTranslate.x) * scaleChange;
-                      currentTranslate.y = mouseY - (mouseY - currentTranslate.y) * scaleChange;
-                      currentScale = newScale;
-                      applyTransform();
-                    };
-
-                    wrapper.addEventListener("wheel", handleWheel, { passive: false });
-
-                    // Button handlers
-                    zoomInBtn.addEventListener("click", (e) => {
-                      e.stopPropagation();
-                      if (currentScale < maxScale) {
-                        currentScale = Math.min(maxScale, currentScale + scaleStep);
-                        applyTransform();
-                      }
-                    });
-
-                    zoomOutBtn.addEventListener("click", (e) => {
-                      e.stopPropagation();
-                      if (currentScale > minScale) {
-                        currentScale = Math.max(minScale, currentScale - scaleStep);
-                        applyTransform();
-                      }
-                    });
-
-                    resetBtn.addEventListener("click", (e) => {
-                      e.stopPropagation();
-                      currentScale = 1;
-                      currentTranslate = { x: 0, y: 0 };
-                      applyTransform();
-                    });
-
-                    // Add hover effects to nodes
-                    const nodes = svg.querySelectorAll("g.node, g.edgeLabel, g.edgePath");
-                    nodes.forEach((node) => {
-                      (node as SVGElement).style.transition = "opacity 0.2s, filter 0.2s";
-                      node.addEventListener("mouseenter", () => {
-                        (node as SVGElement).style.opacity = "0.9";
-                        (node as SVGElement).style.filter = "brightness(1.1)";
-                      });
-                      node.addEventListener("mouseleave", () => {
-                        (node as SVGElement).style.opacity = "1";
-                        (node as SVGElement).style.filter = "none";
-                      });
-                    });
-
-                      // Cleanup on re-render
-                      (el as any).__mermaid_cleanup = () => {
-                        document.removeEventListener("mousemove", handleMouseMove);
-                        document.removeEventListener("mouseup", handleMouseUp);
-                        wrapper.removeEventListener("wheel", handleWheel);
-                        (el as any).__mermaid_wrapped = false;
-                      };
-                    }
-                  }, 200); // Wait for mermaid to render SVG
-                }).catch((err:Error) => {
-                  console.warn("Mermaid render error:", err);
-                });
+                    }, 200); // Wait for mermaid to render SVG
+                  })
+                  .catch((err: Error) => {
+                    console.warn("Mermaid render error:", err);
+                  });
               }
             } catch (err) {
               console.warn("Mermaid render error:", err);
@@ -706,18 +776,18 @@ export const Preview = memo(function Preview({
               ? decodeURIComponent(enc)
               : el.getAttribute("data-options") || "{}";
             const raw = (rawAttr || "").trim();
-          let opts: any = {};
-          try {
-            opts = JSON.parse(raw);
-          } catch {
+            let opts: any = {};
             try {
-              // Fallback for JS object notation with single quotes
-                const fn = new Function("return (" + raw + ")");
-              opts = fn();
+              opts = JSON.parse(raw);
             } catch {
-              opts = {};
+              try {
+                // Fallback for JS object notation with single quotes
+                const fn = new Function("return (" + raw + ")");
+                opts = fn();
+              } catch {
+                opts = {};
+              }
             }
-          }
 
             const chart = echarts.init(
               el,
@@ -823,8 +893,8 @@ export const Preview = memo(function Preview({
             });
             resizeObserver.observe(el);
 
-          chartsRef.current.push(chart);
-        });
+            chartsRef.current.push(chart);
+          });
         }
         (window as any).define = prevDefine;
       } catch (err) {
@@ -834,8 +904,8 @@ export const Preview = memo(function Preview({
 
     // Use a small delay to ensure DOM is ready, especially in split view
     const timer = setTimeout(() => {
-    initMermaid();
-    initECharts();
+      initMermaid();
+      initECharts();
     }, 100);
 
     return () => {
@@ -847,35 +917,8 @@ export const Preview = memo(function Preview({
 
   const isDark = resolvedTheme === "dark";
 
-  if (!content) {
-    return (
-      <div
-        className={`preview-pane ${className}`}
-        style={{
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: isDark ? "#111827" : "#ffffff",
-        }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            color: isDark ? "#9ca3af" : "#6b7280",
-          }}
-        >
-          <div style={{ fontSize: "48px", marginBottom: "16px" }}>📝</div>
-          <p style={{ fontSize: "18px", fontWeight: 500, marginBottom: "8px" }}>
-            No content to preview
-          </p>
-          <p style={{ fontSize: "14px" }}>
-            Start typing in the editor to see the preview
-          </p>
-        </div>
-      </div>
-    );
-  }
+  // Safely check if content is empty or whitespace-only
+  const isEmpty = !content || (typeof content === "string" && !content.trim());
 
   const scrollToHeading = useCallback((id: string) => {
     // Use a small delay to ensure DOM is ready
@@ -1082,7 +1125,30 @@ export const Preview = memo(function Preview({
           if (el) containerRef.current = el;
         }}
       >
-        {isProcessing || !html ? (
+        {(!content || (typeof content === "string" && !content.trim())) &&
+        !isProcessing ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              textAlign: "center",
+              color: isDark ? "#9ca3af" : "#6b7280",
+            }}
+          >
+            <div style={{ fontSize: "48px", marginBottom: "16px" }}>📝</div>
+            <p
+              style={{ fontSize: "18px", fontWeight: 500, marginBottom: "8px" }}
+            >
+              No content to preview
+            </p>
+            <p style={{ fontSize: "14px" }}>
+              Start typing in the editor to see the preview
+            </p>
+          </div>
+        ) : isProcessing || !html ? (
           <div
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
@@ -1117,8 +1183,8 @@ export const Preview = memo(function Preview({
             className={`markdown-body ${isDark ? "dark" : ""}`}
             data-theme={resolvedTheme}
             data-color-mode={resolvedTheme}
-            style={{ 
-              wordBreak: "break-word", 
+            style={{
+              wordBreak: "break-word",
               overflowWrap: "break-word",
               color: isDark ? "#e2e8f0" : "#0f172a",
               maxWidth: "100%",

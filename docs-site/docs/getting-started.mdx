@@ -26,17 +26,17 @@ Get up and running with Aksha MD Editor in minutes!
 Install the package using your preferred package manager:
 
 <Tabs>
-  <TabItem value="apple" label="npm" default>
+  <TabItem value="apple" label="𝓝 npm" default>
     ```bash npm
     npm install aksha-md-editor
     ```
   </TabItem>
-  <TabItem value="orange" label="yarn">
+  <TabItem value="orange" label="𝓨 yarn">
     ```bash yarn
     yarn add aksha-md-editor
     ```
   </TabItem>
-  <TabItem value="banana" label="pnpm">
+  <TabItem value="banana" label="𝓟 pnpm">
     ```bash pnpm
     pnpm add aksha-md-editor
     ```
@@ -45,49 +45,118 @@ Install the package using your preferred package manager:
 </Tabs>
 
 
-## Basic Usage
+### Example Usage with Download and Theme Toggle
 
-```tsx
-import { useState } from 'react';
-import { MarkdownEditor } from 'aksha-md-editor';
-import 'aksha-md-editor/styles.css';
+<Tabs>
 
-export default function App() {
-  const [markdown, setMarkdown] = useState("# Hello World\n\nStart editing!");
+  <TabItem value="code" label="👨‍💻Code">
+    ```tsx showLineNumbers
+    import { useState } from "react";
+    import { MarkdownEditor } from "aksha-md-editor";
+    import "aksha-md-editor/styles.css";
 
-  return (
-    <div
-      style={{
-        borderRadius:"10px",
-      }}
-    >
-      <MarkdownEditor
-        value={markdown}
-        onChange={setMarkdown}
-        theme="light"
-        height="700px"
-        defaultViewMode="split"
-      />
-    </div>
-  );
-}
-```
+    function DownloadButton({ text }) {
+      const handleDownload = () => {
+        const blob = new Blob([text], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "document.md";
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+
+      return (
+        <button
+          onClick={handleDownload}
+          style={{
+            padding: "8px 16px",
+            background: "#7c3aed",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontWeight: "500",
+          }}
+        >
+          Download .md
+        </button>
+      );
+    }
+
+    function ThemeToggleButton({ theme, onToggle }) {
+      return (
+        <button
+          onClick={onToggle}
+          style={{
+            padding: "8px 16px",
+            background: theme === "light" ? "#333" : "#e5e7eb",
+            color: theme === "light" ? "white" : "black",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontWeight: "500",
+            marginRight: "10px",
+          }}
+        >
+          {theme === "light" ? "Dark Mode" : "Light Mode"}
+        </button>
+      );
+    }
+
+    export default function App() {
+      const value = `# Welcome to Aksha-MD-Editor 🙏\n\nStart Writing Your Markdown Content Here...`;
+      const [markdown, setMarkdown] = useState(value);
+      const [theme, setTheme] = useState("light");
+
+      const handleToggleTheme = () => {
+        setTheme((prev) => (prev === "light" ? "dark" : "light"));
+      };
+
+      return (
+        <>
+          <div
+            style={{
+              height: "700px",
+              border: "1px solid #e5e7eb",
+              borderRadius: "8px",
+              overflow: "hidden",
+              marginBottom: "10px",
+            }}
+          >
+            <MarkdownEditor
+              value={markdown}
+              onChange={setMarkdown}
+              theme={theme}
+              height="700px"
+            />
+          </div>
+
+          <div style={{ marginBottom: "10px" }}>
+            <ThemeToggleButton theme={theme} onToggle={handleToggleTheme} />
+            <DownloadButton text={markdown} />
+          </div>
+        </>
+      );
+    }
+    ```
+  </TabItem>
+
+  <TabItem value="live" label="🌍 Live Editor">
+    <section className={styles.demoSection}>
+      <div className="container">
+        <div className="container" style={{ marginTop: "1rem", border: "2px solid #B7B9BD", backgroundColor: "#e2f2ffef", borderRadius: "8px", padding: "1rem" }}>
+          <LiveAkshaEditor />
+        </div>
+      </div>
+    </section>
+  </TabItem>
+</Tabs>
 
 :::important CSS Import Required
 Don't forget to import the CSS file for proper styling!
 :::
 
-<section className={styles.demoSection}>
-  <div className="container">
-    <Heading as="h1" style={{ textAlign: 'center', marginBottom: '2rem', textDecoration: 'underline' }}>
-      Live Demo
-    </Heading>
-    <div className="container" style={{ marginTop: "1rem", border: "2px solid #B7B9BD", backgroundColor: "#e2f2ffef", borderRadius: "8px", padding: "1rem" }}>
-      <LiveAkshaEditor />
-    </div>
-
-  </div>
-</section>
 
 ---
 

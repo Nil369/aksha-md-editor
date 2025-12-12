@@ -26,8 +26,7 @@ type MarkdownEditorProps = {
   enableResize?: boolean;
 };
 
-const val = `
-# Welcome to Aksha-MD-Editor 🙏
+const val = `# Welcome to Aksha-MD-Editor 🙏
 
 A streamlined, developer-friendly markdown editor built to help you write faster, organize better, and integrate seamlessly into modern React applications.
 
@@ -167,6 +166,37 @@ flowchart TD
 
 `;
 
+/**
+ * **MarkdownEditor** - A full-featured markdown editor with live preview
+ *
+ * This is the main component that combines the Editor and Preview components
+ * into a complete markdown editing experience.
+ *
+ * Features:
+ * - Split view, edit-only, or preview-only modes
+ * - Real-time preview with syntax highlighting
+ * - KaTeX math rendering
+ * - Mermaid diagrams and ECharts support
+ * - Resizable split view
+ * - Fullscreen mode
+ * - Auto-scroll synchronization
+ * - Table of contents sidebar
+ * - Customizable toolbar
+ *
+ * @param props - MarkdownEditor component props
+ * @returns The rendered markdown editor component
+ *
+ * @example
+ * ```tsx
+ * <MarkdownEditor
+ *   value={content}
+ *   onChange={setContent}
+ *   theme="dark"
+ *   height="700px"
+ *   defaultViewMode="split"
+ * />
+ * ```
+ */
 export function MarkdownEditor({
   value,
   defaultValue = val,
@@ -175,7 +205,7 @@ export function MarkdownEditor({
   theme = "auto",
   height = "600px",
   className = "",
-  placeholder = "Start typing...",
+  placeholder = "Start Writing Your Markdown Content Here...",
   readOnly = false,
   showLineNumbers = true,
   enableToolbar = true,
