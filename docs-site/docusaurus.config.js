@@ -11,7 +11,7 @@ import { Github } from 'lucide-react';
 const config = {
   title: 'Aksha MD Editor',
   tagline: 'A highly optimized production-ready Markdown Editor for React',
-  favicon: 'https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-logo.png',
+  favicon: 'https://aksha-md-editor-docs.akashhalder.in/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://Nil369.github.io',
@@ -34,7 +34,7 @@ const config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'hi', 'zh-Hans'],
+    locales: ['en'],
     path: 'i18n'
   },
 
@@ -60,6 +60,23 @@ const config = {
 
   themes: [
     '@docusaurus/theme-live-codeblock',
+  ],
+
+  plugins: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        // Highlighted options for client-side search:
+        hashed: true, // Recommended for long-term caching of the index file
+        // Docs, blog, and pages will be indexed by default.
+        // You can customize which content is indexed:
+        // indexPages: true, 
+        // language: ["en", "zh"], // Supports multiple languages
+        
+        // Optional: for better search results, you can also enable content highlighting
+        highlightSearchTermsOnTargetPage: true, 
+      },
+    ],
   ],
 
   themeConfig:
@@ -88,10 +105,6 @@ const config = {
             href: 'https://github.com/Nil369/aksha-md-editor',
             label: 'GitHub',
             position: 'right',
-          },
-          {
-            type: 'localeDropdown',
-            position: 'right', // or 'left'
           },
         ],
       },
@@ -138,7 +151,7 @@ const config = {
       },
       prism: {
         theme: prismThemes.github,
-        darkTheme: prismThemes.vsDark,
+        darkTheme: prismThemes.dracula,
         showLineNumbers: true,
       },
       codeBlock: {

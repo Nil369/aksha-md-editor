@@ -95,8 +95,8 @@ import { useState } from 'react';
 import { MarkdownEditor } from 'aksha-md-editor';
 import 'aksha-md-editor/styles.css'; // Required: Import CSS for styling
 
-function App() {
-  const [markdown, setMarkdown] = useState('# Hello World');
+export default function App() {
+  const [markdown, setMarkdown] = useState('# Hi There 👋, Welcome to Aksha MD Editor!');
 
   return (
     <MarkdownEditor
@@ -108,15 +108,7 @@ function App() {
   );
 }
 ```
-
-## Browser Support
-
-Aksha MD Editor works in all modern browsers:
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+---
 
 ## Next Steps
 
