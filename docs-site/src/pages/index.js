@@ -14,6 +14,7 @@ function HomepageHeader() {
       <div className={styles.heroContent}>
         <div className={styles.buttons}>
           <Link
+            style= {{color: "#ffffff"}}
             className="button button--primary button--lg"
             to="/docs/getting-started">
             Get Started - 5min ⏱️
@@ -77,7 +78,7 @@ function HomepageFeatures() {
         <Link
           className="button button--primary button--lg"
           to="/docs/getting-started"
-          style={{ display: 'block', width: 'max-content', margin: '2rem auto 0' }}
+          style={{ display: 'block', width: 'max-content', margin: '2rem auto 0', color: "#ffffff" }}
         >
           Explore the Docs 📜
         </Link>
@@ -92,28 +93,13 @@ function HomepageDemo() {
   return (
     <section className={styles.demoSection}>
       <div className="container">
-        <Heading as="h1" style={{ textAlign: 'center', marginBottom: '2rem', textDecoration: 'underline' }}>
+        <Heading as="h1" style={{ textAlign: 'center', marginTop: '1rem' }}>
+          Aksha MD Editor
+        </Heading>
+        <Heading as="h2" style={{ textAlign: 'center', marginBottom: '2rem', textDecoration: 'underline' }}>
           See it in Action
         </Heading>
-        {/* <div className="row" style={{ marginBottom: '2rem' }}>
-          <div className="col">
-            <img
-              src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/interactive-diagrams.png"
-              alt="Aksha MD Editor - Split View Mode"
-              style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <img
-              src="https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/dark-mode-preview.png"
-              alt="Aksha MD Editor - Dark Theme"
-              style={{ width: '100%', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
-            />
-          </div>
-        </div> */}
-        <div className="container" style={{ marginTop: "3rem", border: "2px solid #B7B9BD", backgroundColor: "#f5edffef", borderRadius: "8px", padding: "1rem" }}>
+        <div className="container" style={{ marginTop: "3rem", border: "2px solid #B7B9BD", background: "linear-gradient(135deg, #E6E6FA, #D8BFD8, #FFDAB9, #C3B1E1)", borderRadius: "8px", padding: "1rem", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
           <LiveAkshaEditor />
         </div>
 

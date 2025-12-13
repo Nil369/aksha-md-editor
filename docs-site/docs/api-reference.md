@@ -256,11 +256,6 @@ You can override styles using CSS custom properties:
 | `Ctrl/Cmd + Y` | Redo |
 | `Ctrl/Cmd + /` | Toggle Comment |
 
-## Browser Support
-
-- Chrome/Edge: Latest 2 versions
-- Firefox: Latest 2 versions
-- Safari: Latest 2 versions
 
 ## Performance Tips
 
@@ -268,3 +263,71 @@ You can override styles using CSS custom properties:
 2. **Disable minimap**: Reduces memory usage
 3. **Debounce onChange**: Already implemented (300ms)
 4. **Use controlled mode sparingly**: For large documents, consider uncontrolled mode
+
+----
+
+## Installation via CDN
+
+You can use Aksha MD Editor directly in the browser without a build step (like Webpack or Vite). Because this library is built as an ES Module, you must use an ESM-friendly CDN (like `esm.sh`) to handle the React dependencies correctly.
+
+### Quick Start Example
+
+Create an `index.html` file and paste the following code. This setup includes the necessary CSS for the editor and KaTeX (for math support), and imports the library safely.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aksha MD Editor via CDN</title>
+  
+  <link rel="stylesheet" href="https://unpkg.com/aksha-md-editor@1.0.7/dist/styles.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    /* Set a fixed height for the editor container */
+    #editor-container { height: auto; border: 1px solid #ccc; border-radius: 6px; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+  <div id="editor-container">Loading...</div>
+
+  <script type="module">
+    // Import React and ReactDOM from esm.sh
+    import React from 'https://esm.sh/react@18.2.0';
+    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+
+    // Import AkshaEditor
+    // Note: We use '?bundle' to prevent CSS import errors and '?deps' to link React versions
+    import AkshaEditor from 'https://esm.sh/aksha-md-editor@1.0.7?bundle&deps=react@18.2.0,react-dom@18.2.0';
+
+    function App() {
+      const [content, setContent] = React.useState("# Hello Aksha!\n\nWrite markdown here.");
+
+      // Render the component
+      return React.createElement(AkshaEditor, {
+        value: content,
+        onChange: (newContent) => setContent(newContent),
+        height: "700px" // Set a fixed height for the editor
+      });
+    }
+
+    // Mount the app
+    const root = createRoot(document.getElementById('editor-container'));
+    root.render(React.createElement(App));
+  </script>
+</body>
+</html>
+```
+
+### Key Implementation Details
+
+  * **`type="module"`**: The `<script>` tag must include `type="module"` to support `import` statements in the browser.
+  * **The Import URL**: We use `esm.sh` with specific query parameters:
+      * `?bundle`: Forces the CDN to bundle internal assets, preventing "MIME type" errors with internal CSS imports.
+      * `?deps=react@...`: Ensures the editor uses the *exact same* React instance as your page, preventing "Invalid Hook Call" errors.
+  * **KaTeX CSS**: The editor relies on KaTeX for rendering math equations (e.g., $E=mc^2$). Browsers cannot import CSS files via JavaScript modules effectively, so you must include the KaTeX stylesheet manually in the `<head>` section.

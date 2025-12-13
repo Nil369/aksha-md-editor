@@ -52,8 +52,7 @@ function ThemeToggleButton({ theme, onToggle }) {
 }
 
 function LiveAkshaEditor() {
-  const value = `
-# Welcome to Aksha-MD-Editor 🙏
+  const value = `# Welcome to Aksha-MD-Editor 🙏
 
 A streamlined, developer-friendly markdown editor built to help you write faster, organize better, and integrate seamlessly into modern React applications.
 
