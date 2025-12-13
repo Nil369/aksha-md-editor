@@ -3,9 +3,10 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-
 import styles from './index.module.css';
 import LiveAkshaEditor from '../components/LiveAkshaEditor';
+import { Circle, Github } from 'lucide-react';
+
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -14,18 +15,44 @@ function HomepageHeader() {
       <div className={styles.heroContent}>
         <div className={styles.buttons}>
           <Link
-            style= {{color: "#ffffff"}}
             className="button button--primary button--lg"
-            to="/docs/getting-started">
+            style={{ color: "#ffffff", borderColor: "#ffffff" }}
+            to="/docs/getting-started"
+          >
             Get Started - 5min ⏱️
           </Link>
+
           <Link
-            className="button button--secondary button--lg"
-            style={{ marginLeft: '1rem' }}
-            href="https://github.com/Nil369/aksha-md-editor">
+            className="button button--secondary button--lg npmButton"
+            style={{ marginLeft: '1rem', backgroundColor: '#c40504', color: '#ffffff' }}
+            href="https://www.npmjs.com/package/aksha-md-editor"
+          >
+            View on npm
+            <img
+              alt="NPM Version"
+              src="https://www.svgrepo.com/show/355146/npm.svg"
+              style={{
+                width: '20px',
+                height: '20px',
+                marginLeft: '0.5rem',
+                verticalAlign: 'middle'
+              }}
+            />
+          </Link>
+
+          <Link
+            className="button button--secondary button--lg githubButton"
+            style={{ marginLeft: '1rem', backgroundColor: '#24292e', color: '#ffffff' }}
+            href="https://github.com/Nil369/aksha-md-editor"
+          >
             View on GitHub
+            <Github
+              size={20}
+              style={{ verticalAlign: "middle", marginBottom: "0.3rem", marginLeft: "0.3rem" }}
+            />
           </Link>
         </div>
+
       </div>
     </header>
   );
@@ -62,7 +89,7 @@ function HomepageFeatures() {
   return (
     <section className={styles.features}>
       <div className="container">
-        <Heading as="h1" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <Heading as="h2" style={{ textAlign: 'center', marginBottom: '2rem' }}>
           Features
         </Heading>
         <div className="row">
@@ -93,13 +120,30 @@ function HomepageDemo() {
   return (
     <section className={styles.demoSection}>
       <div className="container">
-        <Heading as="h1" style={{ textAlign: 'center', marginTop: '1rem' }}>
+        <Heading as="h1" style={{ textAlign: 'center', textDecoration: 'underline' }}>
           Aksha MD Editor
         </Heading>
-        <Heading as="h2" style={{ textAlign: 'center', marginBottom: '2rem', textDecoration: 'underline' }}>
-          See it in Action
-        </Heading>
+
+        <p style={{ textAlign: 'center', fontSize: '1.1rem', marginTop: '1rem', marginBottom: '4rem' }}>A highly optimized, <strong>production-ready Markdown Editor</strong> for <strong>React</strong> with <strong>live preview</strong> and <strong>VS Code style interface</strong>!</p>
+
         <div className="container" style={{ marginTop: "3rem", border: "2px solid #B7B9BD", background: "linear-gradient(135deg, #E6E6FA, #D8BFD8, #FFDAB9, #C3B1E1)", borderRadius: "8px", padding: "1rem", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
+          <Heading
+            as="h2"
+            style={{
+              textAlign: 'center',
+              marginBottom: '2rem',
+              color: '#000000',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              verticalAlign: 'middle'
+            }}
+          >
+            <Circle className={styles.liveDot} size={14} fill="#16a34a" color="#16a34a" />
+            Live Editor Preview
+          </Heading>
+
           <LiveAkshaEditor />
         </div>
 
