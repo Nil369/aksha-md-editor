@@ -5,7 +5,7 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-image: url('https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876');
+  background-image: url("https://ik.imagekit.io/AkashPortfolioAssets/product_demo_videos/aksha_docs/aksha-md-editor-banner.png?updatedAt=1765364484876");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -35,11 +35,11 @@
     min-height: 400px;
     height: 60vh;
   }
-  
+
   .heroContent {
     padding: 2rem 1rem;
   }
-  
+
   .heroSubtitle {
     font-size: 1.2rem;
   }
@@ -128,8 +128,60 @@
   .heroTitle {
     font-size: 2.5rem;
   }
-  
+
   .buttons {
     flex-direction: column;
+  }
+}
+
+/* Common button styles */
+
+.buttons :global(.button) {
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Common hover animation */
+.buttons :global(.button:hover) {
+  /* transform: translateY(-3px); */
+  scale: 1.05;
+  transition: transform 0.5s ease, box-shadow 0.5s ease,
+    background-color 0.5s ease, color 0.25s ease;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* Primary button hover */
+.buttons :global(.button--primary:hover) {
+  background-color: #9b70ff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* NPM button hover */
+.buttons :global(.npmButton:hover) {
+  background-color: #a30000;
+}
+
+/* GitHub button hover */
+.buttons :global(.githubButton:hover) {
+  background-color: #000000;
+}
+
+.liveDot {
+  animation: pulse 1.6s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.6;
   }
 }
